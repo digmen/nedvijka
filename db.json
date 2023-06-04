@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "img": "https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg",
+      "status": "Продается шикарный особняк в европейско...",
+      "price": 200,
+      "area": 40,
+      "location": "Bishkek",
+      "category": "Участок"
+    },
+    {
+      "id": 2,
+      "img": "https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg",
+      "status": "Продается шикарный особняк в европейско...",
+      "price": 400,
+      "area": 40,
+      "location": "Bishkek",
+      "category": "Дом"
+    },
+    {
+      "id": 3,
+      "img": "https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg",
+      "status": "Продается шикарный особняк в европейско...",
+      "price": 600,
+      "area": 40,
+      "location": "Bishkek",
+      "category": "Комерческая"
+    },
+    {
+      "id": 4,
+      "img": "https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg",
+      "status": "Продается шикарный особняк в европейско...",
+      "price": 800,
+      "area": 40,
+      "location": "Bishkek",
+      "category": "Квартира"
+    }
+  
+  ],
+  "bestproducts": [
+    {
+      "id": 1,
+      "img": "https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg",
+      "status": "BEST",
+      "price": 800,
+      "area": 40,
+      "location": "Bishkek",
+      "category": "Квартира"
+    }
+  ]
+}

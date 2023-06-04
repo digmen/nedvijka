@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .fade-in {
+    opacity: 0;
+    animation: fade-in-animation 1s ease-in forwards;
+    transition: 1s;
+  }
+
+  .nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height:70px;
+    box-shadow: 0px 0px 5px 0px rgba(141,  141,  141, 0.69);
+  }
+
+  .nav_logo{
+    cursor: pointer;
+  }
+  .nav_logo img{
+    width: 50px;
+    height: 50px;
+  }
+
+  .search{
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px rgba(141,  141,  141, 0.69);
+    border-radius: 10px;
+  }
+
+  .search_img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+  .btn_search{
+    border: none;
+    cursor: pointer;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .search_inp{
+    padding: 10px;
+    width: 250px;
+    height: 40px;
+    color: #A4A6AF;
+    border-radius: 10px;
+  }  
+
+  input{
+    border:none;
+    outline: none;
+  }
+ 
+
+  .nav_title{
+    display:flex;
+  }
+  .nav_title a{
+    text-decoration:none;
+    transition: 1s;
+  }
+  .nav_title a:hover{
+    color: #284F9A;
+    transition: 1s;
+  }
+ 
+  .nav_title{
+    width:500px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav_text{
+    color: #A4A6AF;
+    transition: 1s;
+    font-weight: 400;
+  }
+  .nav_text:hover{
+    color: #284F9A;
+    transition: 1s;
+  }
+
+
+
+
+  
+  @keyframes fade-in-animation {
+    0% {
+      opacity: 0;
+      display: block;
+    }
+    100% {
+      opacity: 1;
+      transition: 1s;
+    }
+  }
+  
