@@ -1,0 +1,17 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.buy{
+    padding: 0;
+}
+.up{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.under{
+    justify-content: space-between;
+    display: flex;
+}

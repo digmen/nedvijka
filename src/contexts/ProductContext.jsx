@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { ACTIONS, API, BESTAPI } from '../utils/const';
+import { ACTIONS, BASE_URL } from '../utils/const';
 import axios from 'axios';
 
 const productContext = createContext();
@@ -11,7 +11,7 @@ export function useProductContext() {
 const initState = {
   products: [],
   oneProduct: null,
-  bestproducts: [],
+  // bestproducts: [],
 };
 
 function reducer(state, action) {
@@ -20,8 +20,8 @@ function reducer(state, action) {
       return { ...state, products: action.payload };
     case ACTIONS.oneProduct:
       return { ...state, oneProduct: action.payload };
-    case ACTIONS.bestproducts:
-      return { ...state, bestproducts: action.payload };
+    case ACTIONS.image:
+      return { ...state, oneImage: action.payload };
     default:
       return state;
   }
@@ -30,20 +30,9 @@ function reducer(state, action) {
 function ProductContext({ children }) {
   const [state, dispatch] = useReducer(reducer, initState);
 
-  async function getProduct() {
-    try {
-      const resProduct = await axios.get(API);
-      dispatch({
-        type: ACTIONS.products,
-        payload: resProduct.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
   async function getOneProduct(id) {
     try {
-      const { data } = await axios.get(`${API}/${id}`);
+      const { data } = await axios.get(`${BASE_URL}/${id}`);
       dispatch({
         type: ACTIONS.oneProduct,
         payload: data,
@@ -53,12 +42,26 @@ function ProductContext({ children }) {
     }
   }
 
-  async function getBestProduct() {
+  async function getProducts() {
     try {
-      const resBestProduct = await axios.get(BESTAPI);
+      const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      console.log(data);
       dispatch({
-        type: ACTIONS.bestproducts,
-        payload: resBestProduct.data,
+        type: ACTIONS.products,
+        payload: data.results,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getImage() {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      console.log(data);
+      dispatch({
+        type: ACTIONS.products,
+        payload: data.results,
       });
     } catch (error) {
       console.log(error);
@@ -66,12 +69,10 @@ function ProductContext({ children }) {
   }
 
   const value = {
-    getProduct,
+    getProducts,
     products: state.products,
     getOneProduct,
     oneProduct: state.oneProduct,
-    getBestProduct,
-    bestproducts: state.bestproducts,
   };
 
   return (

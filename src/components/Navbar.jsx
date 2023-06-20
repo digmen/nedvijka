@@ -3,6 +3,14 @@ import logo from '../pages/mainpage/imghome/start_logo.png';
 import search from './img/Search.png';
 import './navbar.css';
 import { Link } from 'react-router-dom';
+import {
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -45,6 +53,19 @@ function Navbar() {
               <Link to="/contact">
                 <span className="nav_text">Контакты</span>
               </Link>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<HamburgerIcon />}
+                  variant="outline"
+                />
+                <MenuList>
+                  <Link to="/login">
+                    <MenuItem>Login</MenuItem>
+                  </Link>
+                </MenuList>
+              </Menu>
             </div>
           </nav>
         </div>

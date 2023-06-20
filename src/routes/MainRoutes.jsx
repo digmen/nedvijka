@@ -7,6 +7,7 @@ import FavoritePage from '../pages/favoritepage/FavoritePage';
 import ServicesPage from '../pages/servicespage/ServicesPage';
 import ContactPage from '../pages/contactpage/ContactPage';
 import DeteilPage from '../pages/deteilpage/DeteilPage';
+import LoginPage from '../pages/loginpage/loginpage';
 
 function MainRoutes() {
   return (
@@ -17,6 +18,7 @@ function MainRoutes() {
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/details/:id" element={<DeteilPage />} />
       </Route>
     </Routes>

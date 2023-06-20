@@ -1,6 +1,8 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+// to={`/details/${item.id}`}
+
 const images = [
   'https://belgorodproekt.ru/wp-content/uploads/2020/03/01-2.jpg',
   'https://m.terem-pro.ru/upload/iblock/63b/63bff1890a929fc510d8e87d30f7df1f.jpg',

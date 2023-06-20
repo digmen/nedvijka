@@ -1,5 +1,4 @@
-export const API = 'http://localhost:8000/products';
-export const BESTAPI = 'http://localhost:8000/bestproducts';
+export const BASE_URL = 'https://vm4506017.43ssd.had.wf/api';
 
 export const ACTIONS = {
   products: 'products',

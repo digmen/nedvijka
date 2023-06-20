@@ -10,43 +10,9 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.container {
+.main {
   margin: 0 auto;
   max-width: 1300px;
-}
-
-.start_logo {
-  width: 15%;
-  height: 27%;
-}
-
-.mainbg {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 100px;
-}
-
-.mainbgimg {
-  border-radius: 0.5rem;
-  width: 75%;
-  height: 85vh;
-}
-
-.main_text {
-  position: absolute;
-  top: 275px;
-  left: 230px;
-}
-
-.main_text1 {
-  font-weight: 400;
-  font-size: 28px;
-}
-
-.main_text2 {
-  font-weight: 300;
-  font-size: 23px;
 }
 
 .bestproduct h1 {
@@ -57,29 +23,100 @@ body {
 
 .card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 80px;
+  gap: 30px;
   margin-top: 20px;
   overflow: hidden;
 }
 
-.ads {
-  margin-top: 100px;
-}
-
-.ads h1 {
+.product_card h1 {
   font-size: 30px;
   font-weight: 600;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 
-.filter {
-  margin-top: 20px;
-  display: flex;
+.card_slider_conatiner{
+  display:flex;
+  justify-content : center;
+  align-item : center;
+}
+
+.main_slider_contianer{
+  display:flex;
+  width:90%;
+  justify-content: center;
   align-items: center;
   gap: 20px;
 }
+.slider{
+  white-space:nowrap;
+  overflow-x:scroll;
+  scrollbar-width:none;
+  scroll-behavior : smooth;
+}
 
-.fade-out {
+.slider_icon_left , .slider_icon_right{
+  opacity:0.2;
+  box-shadow: 5px 5px 1.25rem 0px rgb(0 0 0 / 12%);
+  curser:pointer;
+  height: 5px;
+}
+
+.slider_icon_left:hover , .slider_icon_right:hover{
+  opacity:1;
+}
+
+.slider_card{
+  display:inline-block;
+  border-radius:10px;
+  margin-left:5px;
+  margin-right:5px;
+}
+
+
+.slider::-webkit-scrollbar{
+  display:none;
+}
+
+.description{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+}
+
+.description h1{
+  font-size: 38px;
+  display: flex;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.des_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.des_card img {
+  width: 200px;
+  height: 200px;
+  transition: 1s;
+}
+
+.des_card img:hover{
+  width: 210px;
+  height: 210px;
+  box-shadow: 0px 0px 52px -15px rgba(0,0,0,0.75);
+  transition: 1s;
+}
+
+
+
+.fade_out {
   display: flex;
   align-items: center;
   justify-content: center;
