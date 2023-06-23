@@ -4,4 +4,5 @@ export const ACTIONS = {
   products: 'products',
   oneProduct: 'oneProduct',
   bestproducts: 'bestproducts',
+  review: 'review',
 };

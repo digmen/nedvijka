@@ -8,6 +8,7 @@ import ServicesPage from '../pages/servicespage/ServicesPage';
 import ContactPage from '../pages/contactpage/ContactPage';
 import DeteilPage from '../pages/deteilpage/DeteilPage';
 import LoginPage from '../pages/loginpage/loginpage';
+import Abouttwo from '../pages/aboutpage/Abouttwo';
 
 function MainRoutes() {
   return (
@@ -15,6 +16,7 @@ function MainRoutes() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/aboutus" element={<AboutPage />} />
+        <Route path="/abouttwo" element={<Abouttwo />} />
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />

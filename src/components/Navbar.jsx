@@ -1,75 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from '../pages/mainpage/imghome/start_logo.png';
-import search from './img/Search.png';
 import './navbar.css';
 import { Link } from 'react-router-dom';
-import {
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
 
 function Navbar() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div>
-      {isVisible && (
-        <div className="fade-in">
-          <nav className="nav">
-            <Link to="/" className="nav_logo">
-              <img src={logo} />
+      <div className="fade-in">
+        <nav className="nav">
+          <div className="nav_title">
+            <Link to="/">
+              <span className="nav_text">Домой</span>
             </Link>
-            <div className="search">
-              <input className="search_inp" placeholder="Search" />
-              <button className="btn_search">
-                <img className="search_img" src={search}></img>
-              </button>
-            </div>
-            <div className="nav_title">
-              <Link to="/">
-                <span className="nav_text">Домой</span>
-              </Link>
-              <Link to="/favorite">
-                <span className="nav_text">Избранное</span>
-              </Link>
-              <Link to="/services">
-                <span className="nav_text">Услуги</span>
-              </Link>
-              <Link to="/aboutus">
-                <span className="nav_text">О нас</span>
-              </Link>
-              <Link to="/contact">
-                <span className="nav_text">Контакты</span>
-              </Link>
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<HamburgerIcon />}
-                  variant="outline"
-                />
-                <MenuList>
-                  <Link to="/login">
-                    <MenuItem>Login</MenuItem>
-                  </Link>
-                </MenuList>
-              </Menu>
-            </div>
-          </nav>
-        </div>
-      )}
+            <Link to="/favorite">
+              <span className="nav_text">Избранное</span>
+            </Link>
+            <Link to="/services">
+              <span className="nav_text">Услуги</span>
+            </Link>
+            <Link to="/aboutus">
+              <span className="nav_text">О нас</span>
+            </Link>
+            <Link to="/contact">
+              <span className="nav_text">Контакты</span>
+            </Link>
+            <Link to="/login">
+              <span className="nav_text">Вход</span>
+            </Link>
+          </div>
+          <Link to="/" className="nav_logo">
+            <img src={logo} />
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }

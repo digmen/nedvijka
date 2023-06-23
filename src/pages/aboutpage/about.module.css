@@ -13,19 +13,27 @@
     margin: 0 auto;
 }
 
-.main span{
+.main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main span {
+    font-size: 57px;
     position: absolute;
-    top: 300px;
-    left:170px;
-    width: 580px;
-    font-size: 34px;
+    top: 310px;
     color: white;
-    font-weight: 700;
+}
+.main p{
+    position: absolute;
+    font-size: 24px;
+    top: 400px;
+    color: white;
 }
 
 .reviews{
     margin-top: 100px;
-    
 }
 
 .reviews h1 {
@@ -34,7 +42,7 @@
 }
 
 .reviews_slider{
-    width: 300px;
+    padding: 5px;
     max-height: 400px;
     margin-top: 20px;
 }

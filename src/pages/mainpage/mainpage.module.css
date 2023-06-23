@@ -107,15 +107,6 @@ body {
   transition: 1s;
 }
 
-.des_card img:hover{
-  width: 210px;
-  height: 210px;
-  box-shadow: 0px 0px 52px -15px rgba(0,0,0,0.75);
-  transition: 1s;
-}
-
-
-
 .fade_out {
   display: flex;
   align-items: center;

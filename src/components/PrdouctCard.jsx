@@ -1,14 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useProductContext } from '../contexts/ProductContext';
 import mainstyle from '../pages/mainpage/mainpage.module.css';
 import { FcLike } from 'react-icons/fc';
 import { TiLocation } from 'react-icons/ti';
 import { BiShapeSquare } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
 import { Badge, Box } from '@chakra-ui/react';
-import MySlider from '../components/Slider';
-import { useState } from 'react';
+// to={`/details/${item.id}`}
 
 function ProductCard(props) {
   const { products, getProducts } = useProductContext();
@@ -16,17 +14,18 @@ function ProductCard(props) {
   useEffect(() => {
     getProducts();
   }, []);
+  const { productsq, getProductsq } = useProductContext();
+
+  useEffect(() => {
+    getProductsq();
+  }, []);
 
   return (
     <div className={mainstyle.product_card}>
       <h1>Предложения для вас</h1>
       <div className={mainstyle.card}>
         {products.map((item) => (
-          <Link
-            key={item}
-            className={mainstyle.card}
-            to={`/details/${item.id}`}
-          >
+          <Box key={item.id} className={mainstyle.card}>
             <Box
               maxW="sm"
               borderWidth="1px"
@@ -47,7 +46,11 @@ function ProductCard(props) {
                   overflow: 'hidden',
                 }}
               >
-                <MySlider />
+                {productsq.map((item) => (
+                  <></>
+                ))}
+                <img src={item.apartment_images} alt="error" />
+                {console.log(item.apartment_images)}
               </div>
               <Box p="6">
                 <Box display="flex" alignItems="baseline">
@@ -57,7 +60,7 @@ function ProductCard(props) {
                     colorScheme="teal"
                     fontSize="sm"
                   >
-                    {item.category}
+                    {item.type.title}
                   </Badge>
                 </Box>
                 <Box
@@ -78,11 +81,13 @@ function ProductCard(props) {
                   textTransform="uppercase"
                   ml="2"
                 >
-                  <Box display={'flex'} gap={'5px'}>
-                    <TiLocation fontSize={'20px'} /> {item.location}
+                  <Box pb={1} display={'flex'} gap={'5px'}>
+                    <TiLocation fontSize={'20px'} /> {item.region.name}
+                    <br></br>
+                    {item.address}
                   </Box>
                   <Box display={'flex'} gap={'5px'}>
-                    <BiShapeSquare fontSize={'20px'} /> {item.area} м2
+                    <BiShapeSquare fontSize={'20px'} /> {item.square}
                   </Box>
                 </Box>
                 <Box
@@ -96,7 +101,7 @@ function ProductCard(props) {
                 </Box>
               </Box>
             </Box>
-          </Link>
+          </Box>
         ))}
       </div>
     </div>
