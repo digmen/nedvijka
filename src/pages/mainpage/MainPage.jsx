@@ -17,7 +17,7 @@ function MainPage() {
       <div>
         <div>
           <div>
-            <img src={bg1} style={{ width: '100%' , height:'100%'}}></img>
+            <img src={bg1} style={{ width: '100%', height: '100%' }}></img>
             <Tabs
               bg={'white'}
               borderRadius={5}

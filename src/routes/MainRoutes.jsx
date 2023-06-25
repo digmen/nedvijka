@@ -7,8 +7,10 @@ import FavoritePage from '../pages/favoritepage/FavoritePage';
 import ServicesPage from '../pages/servicespage/ServicesPage';
 import ContactPage from '../pages/contactpage/ContactPage';
 import DeteilPage from '../pages/deteilpage/DeteilPage';
-import LoginPage from '../pages/loginpage/loginpage';
+// import LoginPage from '../pages/loginpage/Loginpage';
 import Abouttwo from '../pages/aboutpage/Abouttwo';
+import LoginPage from '../pages/loginpage/LoginPage';
+// import Loginpage from '../pages/loginpage/Loginpage';
 
 function MainRoutes() {
   return (

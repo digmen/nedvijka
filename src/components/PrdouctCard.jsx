@@ -14,11 +14,6 @@ function ProductCard(props) {
   useEffect(() => {
     getProducts();
   }, []);
-  const { productsq, getProductsq } = useProductContext();
-
-  useEffect(() => {
-    getProductsq();
-  }, []);
 
   return (
     <div className={mainstyle.product_card}>
@@ -39,19 +34,24 @@ function ProductCard(props) {
                 justifyContent: 'space-between',
               }}
             >
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'hidden',
-                }}
-              >
-                {productsq.map((item) => (
-                  <></>
-                ))}
-                <img src={item.apartment_images} alt="error" />
-                {console.log(item.apartment_images)}
-              </div>
+              {item.apartment_images.length > 0 ? (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <img
+                    height="100%"
+                    width="100%"
+                    src={item.apartment_images[0].image}
+                    alt="error"
+                  />
+                </div>
+              ) : (
+                <p>No image available.</p>
+              )}
               <Box p="6">
                 <Box display="flex" alignItems="baseline">
                   <Badge

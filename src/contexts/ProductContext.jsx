@@ -18,8 +18,6 @@ function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.products:
       return { ...state, products: action.payload };
-    case ACTIONS.productsq:
-      return { ...state, productsq: action.payload };
     case ACTIONS.oneProduct:
       return { ...state, oneProduct: action.payload };
     case ACTIONS.review:
@@ -55,17 +53,6 @@ function ProductContext({ children }) {
       console.log(error);
     }
   }
-  async function getProductsq() {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/image/apartments/`);
-      dispatch({
-        type: ACTIONS.productsq,
-        payload: data.results,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   async function getReview() {
     try {
@@ -83,13 +70,10 @@ function ProductContext({ children }) {
   const value = {
     getProducts,
     products: state.products,
-    getProductsq,
-    productsq: state.productsq,
     getOneProduct,
     oneProduct: state.oneProduct,
     getReview,
     review: state.review,
-    
   };
 
   return (

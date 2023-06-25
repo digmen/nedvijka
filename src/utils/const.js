@@ -5,4 +5,7 @@ export const ACTIONS = {
   oneProduct: 'oneProduct',
   bestproducts: 'bestproducts',
   review: 'review',
+  user: "user",
 };
+
+export const LIMIT = 6;
