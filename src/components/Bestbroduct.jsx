@@ -8,9 +8,8 @@ import { BiShapeSquare } from 'react-icons/bi';
 import { Badge, Box } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
-import { FreeMode, Navigation } from 'swiper';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper';
 
 function Bestbroduct(props) {
   const { products, getProducts } = useProductContext();
@@ -24,16 +23,12 @@ function Bestbroduct(props) {
       <h1 style={{ marginTop: '100px' }}>Лучшие предложения для вас</h1>
       <div className={mainstyle.card}>
         <Swiper
-          slidesPerView={4}
+          slidesPerView={3}
           centeredSlides={true}
           spaceBetween={4}
-          pagination={{
-            type: 'fraction',
-          }}
           navigation={true}
           loop={true}
-          freeMode={true}
-          modules={[FreeMode, Navigation]}
+          modules={[Navigation]}
         >
           {products.map((item) => (
             <SwiperSlide key={item.id} display="flex">
