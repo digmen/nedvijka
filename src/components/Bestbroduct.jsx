@@ -23,11 +23,9 @@ function Bestbroduct(props) {
       <h1 style={{ marginTop: '100px' }}>Лучшие предложения для вас</h1>
       <div className={mainstyle.card}>
         <Swiper
-          slidesPerView={3}
-          centeredSlides={true}
-          spaceBetween={4}
+          slidesPerView={4}
+          spaceBetween={1}
           navigation={true}
-          loop={true}
           modules={[Navigation]}
         >
           {products.map((item) => (
