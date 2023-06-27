@@ -48,9 +48,9 @@ function Navbar() {
               <span className="nav_text">Вход</span>
             </Link>
             <div>
-              <button class="button">
-                <span class="pulse-button__text">
-                  <AddIcon boxSize={3}/> Добавить обявление
+              <button className="button">
+                <span className="pulse-button__text">
+                  <AddIcon boxSize={3} /> Добавить обявление
                 </span>
               </button>
             </div>

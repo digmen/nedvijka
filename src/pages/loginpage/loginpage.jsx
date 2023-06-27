@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import loginstyle from './loginpage.module.css';
 import { Navigate } from 'react-router-dom';
-import { useAuthContext } from '../../contexts/AuthContext';
-import { BASE_URL } from '../../utils/const';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,10 +21,10 @@ const LoginPage = () => {
         'https://vm4506017.43ssd.had.wf/api/users/',
         data
       );
-      console.log(data);
 
-      if (response.status === 200) {
+      if (response.status >= 200 && response.status < 300) {
         console.log('Регистрация прошла успешно');
+        setRegistrationSuccess(true);
       } else {
         console.error('Ошибка регистрации');
       }
@@ -35,10 +33,14 @@ const LoginPage = () => {
     }
   };
 
+  if (registrationSuccess) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className={loginstyle.container}>
-      <span>Регистрация</span>
-      <form onSubmit={handleSubmit}>
+      <form className={loginstyle.login} onSubmit={handleSubmit}>
+        <span>Регистрация</span>
         <div className={loginstyle.inp_login}>
           <input
             placeholder="Почта/Email"
@@ -55,10 +57,12 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={() => setShowPass(!showPass)}>
-          {showPass ? 'Скрыть' : 'Показать'}
-        </button>
-        <button type="submit">Зарегистрироваться</button>
+        <div className={loginstyle.btn}>
+          <button type="button" onClick={() => setShowPass(!showPass)}>
+            {showPass ? 'Скрыть' : 'Показать'}
+          </button>
+          <button type="submit">Зарегистрироваться</button>
+        </div>
         <div>
           <a href="#">Забыли пароль?</a>
           <a href="#">Уже зарегистрированы?</a>
