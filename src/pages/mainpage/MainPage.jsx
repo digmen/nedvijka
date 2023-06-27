@@ -17,7 +17,11 @@ function MainPage() {
       <div>
         <div>
           <div>
-            <img src={bg1} style={{ width: '100%', height: '100%' }}></img>
+            <img
+              alt="error img"
+              src={bg1}
+              style={{ width: '100%', height: '100%' }}
+            ></img>
             <Tabs
               bg={'white'}
               borderRadius={5}
@@ -61,10 +65,10 @@ function MainPage() {
                 </div>
               </div>
               <div className={mainstyle.des_card}>
-                <img src={q}></img>
-                <img src={w}></img>
-                <img src={e}></img>
-                <img src={r}></img>
+                <img alt="error img" src={q}></img>
+                <img alt="error img" src={w}></img>
+                <img alt="error img" src={e}></img>
+                <img alt="error img" src={r}></img>
               </div>
             </div>
             <ProductCard />

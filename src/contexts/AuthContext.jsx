@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { ACTIONS } from '../utils/const';
+import { ACTIONS, BASE_URL } from '../utils/const';
 import axios from 'axios';
 
 const authContext = createContext();
@@ -25,30 +25,23 @@ function reducer(state, action) {
 function AuthContext({ children }) {
   const [state, dispatch] = useReducer(reducer, initState);
 
-  // Функция регистрации пользователя
   async function registerUser(email, password) {
     try {
-      const response = await axios.post('/api/register', {
-        email: email,
+      const response = await axios.post(`${BASE_URL}/users`, {
+        login: email,
         password: password,
       });
-
-      // Обновление состояния пользователя
       dispatch({
         type: ACTIONS.user,
         payload: response.data.user,
       });
-
-      // Дополнительные действия после успешной регистрации
       console.log('Регистрация прошла успешно!');
       console.log(response.data);
     } catch (error) {
-      // Обработка ошибки при регистрации
       console.error('Ошибка при регистрации:', error.response.data);
     }
   }
 
-  // Значение контекста, доступное для дочерних компонентов
   const value = {
     user: state.user,
     registerUser: registerUser,

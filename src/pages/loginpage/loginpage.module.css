@@ -10,13 +10,18 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.container{
+.container {
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.login{
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 100px auto;
+    margin: 0 auto;
+    margin-top: 80px;
     max-width: 500px;
-    height: 500px;
     padding: 70px;
     background-color: #5690e8;
     border-radius: 5px;
@@ -49,6 +54,25 @@ body {
     display: flex;
     gap: 20px;
     flex-direction: column;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     margin-top: 20px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+.btn button:first-child{
+    min-width: 107px;
+}
+
+.btn button{
+    color: white;
+    background-color: #284F9A;
+    padding: 5px 15px;
+    border-radius: 5px;
 }

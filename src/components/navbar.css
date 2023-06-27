@@ -6,22 +6,31 @@
     box-sizing: border-box;
   }
 
-  .fade-in {
-    opacity: 0;
-    animation: fade-in-animation 1s ease-in forwards;
-    transition: 1s;
-  }
-
   .nav{
     display: flex;
     align-items: center;
+    justify-content: space-around;
     height:70px;
+    color: #284F9A;
     box-shadow: 0px 0px 5px 0px rgba(141,  141,  141, 0.69);
   }
 
+.nav button{
+  padding: 5px 15px;
+  background-color: #0D7AE2;
+  border-radius: 15px;
+  color: white;
+}
+
+.button{
+      animation: animation1 1s linear infinite;
+      cursor: pointer;
+  }
+
+ 
+
   .nav_logo{
     cursor: pointer;
-    padding-left: 200px;
   }
   .nav_logo img{
     width: 50px;
@@ -37,7 +46,6 @@
   }
 
   .nav_text{
-    color: #284F9A;
     transition: 1s;
     font-weight: 400;
   }
@@ -47,15 +55,18 @@
   }
 
 
+  @keyframes  animation1 {
   
-  @keyframes fade-in-animation {
-    0% {
-      opacity: 0;
-      display: block;
+    0% 
+    {
+      box-shadow: 0 0 #0D7AE2; 
     }
-    100% {
-      opacity: 1;
-      transition: 1s;
+    to 
+    {
+      box-shadow: -7px 0px 0px #0d7be2b6, 7px 0px 0px #0d7be2b6; 
     }
+  
   }
+
   
+

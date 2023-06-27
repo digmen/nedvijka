@@ -1,0 +1,23 @@
+.container{
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.add{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 150px 0;
+}
+
+.add span{
+    color: rgb(137, 137, 137);
+    margin: 5px;
+}
+
+.add button{
+    background-color: #284F9A;
+    color: white;
+    padding: 5px 13px;
+    border-radius: 5px;
+}

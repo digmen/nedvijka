@@ -8,7 +8,7 @@ import { BiShapeSquare } from 'react-icons/bi';
 import { Badge, Box } from '@chakra-ui/react';
 // to={`/details/${item.id}`}
 
-function ProductCard(props) {
+function ProductCard() {
   const { products, getProducts } = useProductContext();
 
   useEffect(() => {
