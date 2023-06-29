@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logo from '../pages/mainpage/imghome/start_logo.png';
 import './navbar.css';
 import { Link } from 'react-router-dom';
@@ -93,6 +93,7 @@ function Navbar() {
               backgroundColor=" #2D56A5"
               className="button"
               onClick={onOpen}
+              borderRadius={50}
             >
               <span className="button__text">
                 <AddIcon className="button_icon" boxSize={3} /> Добавить

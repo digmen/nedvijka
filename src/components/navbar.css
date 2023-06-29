@@ -47,7 +47,6 @@
   .button{
     padding: 10px 15px;
     background-color:  #2D56A5;
-    border-radius: 35px;
     animation: pulse1 2s infinite, pulse2 2s infinite 1s, pulse3 2s infinite 2s;
     cursor: pointer;
   }

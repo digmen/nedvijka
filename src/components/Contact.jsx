@@ -1,3 +1,5 @@
+import React from 'react';
+import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Heading,
@@ -8,65 +10,99 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  useDisclosure,
+  background,
+  ModalFooter,
+  Input,
+  FormControl,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  ModalBody,
+  ModalHeader,
+  Modal,
 } from '@chakra-ui/react';
 
 export default function CallToActionWithAnnotation() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+
   return (
     <>
-
       <Container maxW={'3xl'}>
         <Stack
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          py={{ base: 20, md: 36 }}
+        >
           <Heading
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}>
-                Кыргыз <br />
-            <Text as={'span'} color={'#0D7AE2'}>
-              Недвижимость
+            lineHeight={'110%'}
+          >
+            Агентство
+            <br />
+            <Text as={'span'} color={' #2D56A5'}>
+              Недвижимости #1
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-          Агентство недвижимости «Кыргыз Недвижимость» в городах Бишкек и Ош – ведущая компания в сфере недвижимости. Мы собрали в одном месте лучших экспертов рынка, чтобы предложить клиентам лучшее – профессиональные рекомендации и самые выгодные предложения по продаже и покупке недвижимости!
+            Агентство недвижимости #1 в городе Бишкек– ведущая компания в сфере
+            недвижимости. Мы собрали в одном месте лучших экспертов рынка, чтобы
+            предложить клиентам лучшее профессиональные рекомендации и самые
+            выгодные предложения по продаже и покупке недвижимости!
           </Text>
           <Stack
             direction={'column'}
             spacing={3}
             align={'center'}
             alignSelf={'center'}
-            position={'relative'}>
+            position={'relative'}
+          >
             <Button
-              colorScheme={'green'}
-              bg={'#0D7AE2'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: '#0D7AE2',
-              }}>
-              Начать
+              backgroundColor=" #2D56A5"
+              className="button"
+              onClick={onOpen}
+              borderRadius={50}
+              _hover={' #2D56A5'}
+            >
+              <span className="button__text">
+                <AddIcon className="button_icon" boxSize={3} /> Добавить
+                объявление
+              </span>
             </Button>
-            <Box>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
-                w={71}
-                position={'absolute'}
-                right={-71}
-                top={'10px'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                Starting at $15/mo
-              </Text>
-            </Box>
+            <Modal
+              initialFocusRef={initialRef}
+              finalFocusRef={finalRef}
+              isOpen={isOpen}
+              onClose={onClose}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Отправить запрос</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl>
+                    <Input
+                      mb={5}
+                      ref={initialRef}
+                      type="text"
+                      placeholder="Имя"
+                    />
+                    <Input type="tel" placeholder="Телфон" />
+                  </FormControl>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3}>
+                    Отправить
+                  </Button>
+                  <Button onClick={onClose}>Закрыть</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Stack>
         </Stack>
       </Container>
