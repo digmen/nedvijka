@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useProductContext } from '../contexts/ProductContext';
 import mainstyle from '../pages/mainpage/mainpage.module.css';
@@ -10,14 +10,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
+import axios from 'axios';
+import { BASE_URL } from '../utils/const';
 
 function Bestbroduct(props) {
-  const { products, getProducts } = useProductContext();
+  const { bestproducts, getBestProducts } = useProductContext();
 
   useEffect(() => {
-    getProducts();
+    getBestProducts();
   }, []);
-
   return (
     <div className={mainstyle.bestproduct}>
       <h1 style={{ marginTop: '100px' }}>Лучшие предложения для вас</h1>
@@ -28,8 +29,8 @@ function Bestbroduct(props) {
           navigation={true}
           modules={[Navigation]}
         >
-          {products.map((item) => (
-            <SwiperSlide key={item.id} display="flex">
+          {bestproducts.map((apartment) => (
+            <SwiperSlide key={apartment.id} display="flex">
               <Box className={mainstyle.card}>
                 <Box
                   maxW="sm"
@@ -38,7 +39,7 @@ function Bestbroduct(props) {
                   overflow="hidden"
                   style={{
                     width: '300px',
-                    height: '340px',
+                    height: '400px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -51,10 +52,10 @@ function Bestbroduct(props) {
                       overflow: 'hidden',
                     }}
                   >
-                    {item.apartment_images.length > 0 ? (
+                    {apartment.apartment_images.length > 0 ? (
                       <img
                         width="100%"
-                        src={item.apartment_images[0].image}
+                        src={apartment.apartment_images[0].image}
                         alt="error"
                       />
                     ) : (
@@ -62,14 +63,14 @@ function Bestbroduct(props) {
                     )}
                   </div>
                   <Box p="6">
-                    <Box display="flex" alignItems="baseline">
+                    <Box display="flex" alignapartmentss="baseline">
                       <Badge
                         borderRadius="full"
                         px="2"
                         colorScheme="teal"
                         fontSize="sm"
                       >
-                        {item.type.title}
+                        {apartment.type.title}
                       </Badge>
                     </Box>
                     <Box
@@ -80,7 +81,7 @@ function Bestbroduct(props) {
                       noOfLines={1}
                       maxW="270px"
                     >
-                      {item.status}
+                      {apartment.status}
                     </Box>
                     <Box
                       color="gray.500"
@@ -91,12 +92,12 @@ function Bestbroduct(props) {
                       ml="2"
                     >
                       <Box pb={1} display={'flex'} gap={'5px'}>
-                        <TiLocation fontSize={'20px'} /> {item.region.name}
+                        <TiLocation fontSize={'20px'} /> {apartment.region.name}
                         <br></br>
-                        {item.address}
+                        {apartment.address}
                       </Box>
                       <Box display={'flex'} gap={'5px'}>
-                        <BiShapeSquare fontSize={'20px'} /> {item.square}
+                        <BiShapeSquare fontSize={'20px'} /> {apartment.square}
                       </Box>
                     </Box>
                     <Box
@@ -105,7 +106,7 @@ function Bestbroduct(props) {
                       display={'flex'}
                       justifyContent={'space-between'}
                     >
-                      {item.price} Сом
+                      {apartment.price} $
                       <FcLike fontSize={'30px'} />
                     </Box>
                   </Box>

@@ -31,24 +31,24 @@ function DetailPage() {
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Slider className={deteilstyle.img} {...settings}>
-              <div>
-                <img
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                  src={oneProduct.img1}
-                />
-              </div>
-              <div>
-                <img
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                  src={oneProduct.img2}
-                />
-              </div>
-              <div>
-                <img
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                  src={oneProduct.img3}
-                />
-              </div>
+              {oneProduct.apartment_images.length > 0 ? (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <img
+                    height="100%"
+                    width="100%"
+                    src={oneProduct.apartment_images[0].image}
+                    alt="error"
+                  />
+                </div>
+              ) : (
+                <p>No image available.</p>
+              )}
             </Slider>
             <div>
               <Flex>
@@ -63,7 +63,9 @@ function DetailPage() {
                   <Text fontSize="sm">UI Engineer</Text>
                 </Box>
               </Flex>
-              <Text mt={10} maxW={'600px'}>{oneProduct.description}</Text>
+              <Text mt={10} maxW={'600px'}>
+                {oneProduct.description}
+              </Text>
             </div>
           </div>
           <div style={{ marginTop: '50px', marginBottom: '50px' }}>

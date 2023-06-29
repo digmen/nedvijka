@@ -6,7 +6,7 @@ import { FcLike } from 'react-icons/fc';
 import { TiLocation } from 'react-icons/ti';
 import { BiShapeSquare } from 'react-icons/bi';
 import { Badge, Box } from '@chakra-ui/react';
-// to={`/details/${item.id}`}
+import { Link } from 'react-router-dom';
 
 function ProductCard() {
   const { products, getProducts } = useProductContext();
@@ -17,7 +17,7 @@ function ProductCard() {
 
   return (
     <div className={mainstyle.product_card}>
-      <h1>Предложения для вас</h1>
+      <h1>Наши объекты</h1>
       <div className={mainstyle.card}>
         {products.map((item) => (
           <Box key={item.id} className={mainstyle.card}>
@@ -28,14 +28,15 @@ function ProductCard() {
               overflow="hidden"
               style={{
                 width: '300px',
-                height: '340px',
+                height: '400px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
               }}
             >
               {item.apartment_images.length > 0 ? (
-                <div
+                <Link
+                  to={`/details/${item.id}`}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -48,7 +49,7 @@ function ProductCard() {
                     src={item.apartment_images[0].image}
                     alt="error"
                   />
-                </div>
+                </Link>
               ) : (
                 <p>No image available.</p>
               )}
@@ -96,8 +97,7 @@ function ProductCard() {
                   display={'flex'}
                   justifyContent={'space-between'}
                 >
-                  {item.price} Сом
-                  <FcLike fontSize={'30px'} />
+                  {item.price} $
                 </Box>
               </Box>
             </Box>

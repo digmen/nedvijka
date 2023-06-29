@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
 }
 
-body {
-  font-family: 'Montserrat', sans-serif;
+
+.container{
+  margin: 0 auto;
+  max-width: 1400px;
 }
 
 .main {
@@ -16,9 +19,11 @@ body {
 }
 
 .bestproduct h1 {
-  font-size: 30px;
+  font-size: 48px;
   font-weight: 600;
   margin-bottom: 50px;
+ display: flex;
+ justify-content: center;
 }
 
 .card {
@@ -29,10 +34,12 @@ body {
 }
 
 .product_card h1 {
-  font-size: 30px;
+  font-size: 42px;
   font-weight: 600;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .card_slider_conatiner{
@@ -82,15 +89,19 @@ body {
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  text-align: center;
-
 }
 
 .description h1{
-  font-size: 38px;
+  font-size: 42px;
   display: flex;
+  justify-content: center;
   margin-bottom: 20px;
   font-weight: 400;
+}
+
+.description span{
+  font-size: 20px;
+  color: #292929ce;
 }
 
 .des_card {

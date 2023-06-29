@@ -49,7 +49,7 @@ const BuyTree = () => {
           <Button width={190} background={"transparent"} color={"#2a72ee"}><ArrowUpIcon />Расширенный поиск</Button>
         </div>
         <div className="und3">
-          <Button width={280} colorScheme='red'>Показать 14 предложений</Button>
+          <Button width={280} bgColor={'#2D56A5'} color={'white'}>Показать 14 предложений</Button>
         </div>
       </div>
     </div>

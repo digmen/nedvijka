@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import loginstyle from './loginpage.module.css';
+import styles from './loginpage.css';
 import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -38,36 +38,58 @@ const LoginPage = () => {
   }
 
   return (
-    <div className={loginstyle.container}>
-      <form className={loginstyle.login} onSubmit={handleSubmit}>
-        <span>Регистрация</span>
-        <div className={loginstyle.inp_login}>
-          <input
-            placeholder="Почта/Email"
-            value={email}
-            autoComplete="username"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            placeholder="Пароль"
-            type={showPass ? 'text' : 'password'}
-            required
-            value={password}
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+    <div style={{ marginTop: '80px' }}>
+      <div className="main">
+        <input type="checkbox" id="chk" aria-hidden="true" />
+        <div className="login">
+          <form className="form">
+            <label for="chk" aria-hidden="true">
+              Log in
+            </label>
+            <input
+              className="input"
+              type="email"
+              name="email"
+              placeholder="Имя"
+              required=""
+            />
+            <input
+              className="input"
+              type="password"
+              name="pswd"
+              placeholder="Пароль"
+              required=""
+            />
+            <button>Войти</button>
+          </form>
         </div>
-        <div className={loginstyle.btn}>
-          <button type="button" onClick={() => setShowPass(!showPass)}>
-            {showPass ? 'Скрыть' : 'Показать'}
-          </button>
-          <button type="submit">Зарегистрироваться</button>
+
+        <div className="register">
+          <form onSubmit={handleSubmit} className="form">
+            <label for="chk" aria-hidden="true">
+              Регистрации
+            </label>
+            <input
+              className="input"
+              placeholder="Имя"
+              value={email}
+              autoComplete="username"
+              onChange={(e) => setEmail(e.target.value)}
+              required=""
+            />
+            <input
+              className="input"
+              placeholder="Пароль"
+              type={showPass ? 'text' : 'password'}
+              required
+              value={password}
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button>Зарегистрироваться</button>
+          </form>
         </div>
-        <div>
-          <a href="#">Забыли пароль?</a>
-          <a href="#">Уже зарегистрированы?</a>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

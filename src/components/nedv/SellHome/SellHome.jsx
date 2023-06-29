@@ -15,7 +15,7 @@ export default function SellHome() {
   return (
     <Stack
       minH={'300px'}
-      maxW={'1350px'}
+      minW={'1000px'}
       direction={{ base: 'column', md: 'row' }}
       backgroundColor={'white'}
       p={0}

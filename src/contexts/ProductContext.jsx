@@ -12,6 +12,7 @@ const initState = {
   products: [],
   oneProduct: null,
   review: [],
+  bestproducts: [],
 };
 
 function reducer(state, action) {
@@ -20,8 +21,8 @@ function reducer(state, action) {
       return { ...state, products: action.payload };
     case ACTIONS.oneProduct:
       return { ...state, oneProduct: action.payload };
-    case ACTIONS.review:
-      return { ...state, review: action.payload };
+    case ACTIONS.bestproducts:
+      return { ...state, bestproducts: action.payload };
     default:
       return state;
   }
@@ -32,7 +33,7 @@ function ProductContext({ children }) {
 
   async function getOneProduct(id) {
     try {
-      const { data } = await axios.get(`${BASE_URL}/${id}`);
+      const { data } = await axios.get(`${BASE_URL}/apartment/${id}`);
       dispatch({
         type: ACTIONS.oneProduct,
         payload: data,
@@ -42,12 +43,28 @@ function ProductContext({ children }) {
     }
   }
 
+  async function getBestProducts() {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      const filteredProducts = data.results.filter(
+        (product) => product.best === true
+      );
+      dispatch({
+        type: ACTIONS.bestproducts,
+        payload: filteredProducts,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function getProducts() {
     try {
       const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      const Products = data.results.filter((product) => product.best === false);
       dispatch({
         type: ACTIONS.products,
-        payload: data.results,
+        payload: Products,
       });
     } catch (error) {
       console.log(error);
@@ -74,6 +91,8 @@ function ProductContext({ children }) {
     oneProduct: state.oneProduct,
     getReview,
     review: state.review,
+    getBestProducts,
+    bestproducts: state.bestproducts,
   };
 
   return (

@@ -168,9 +168,6 @@ function AboutPage() {
           </div>
         </div>
       </div>
-      <footer>
-        <img style={{ width: '100%' }} src={footer} />
-      </footer>
     </>
   );
 }
