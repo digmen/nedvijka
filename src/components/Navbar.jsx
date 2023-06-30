@@ -55,7 +55,7 @@ function Navbar() {
             <span className="nav_text">Контакты</span>
           </Link>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+        <div className='nav_rigtht'>
           <div
             style={{
               display: 'flex',
@@ -65,19 +65,15 @@ function Navbar() {
             }}
           >
             <PhoneIcon />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <a style={{ fontSize: '18px' }} href="tel:+996550900700">
-                +996 550 900 700
-              </a>
-              <a style={{ fontSize: '18px' }} href="tel:+996221900900">
-                +996 221 900 900
-              </a>
+            <div className="phone_num2">
+              <a href="tel:+996550900700">+996 550 900 700</a>
+              <a href="tel:+996221900900">+996 221 900 900</a>
             </div>
           </div>
-          <div style={{ marginLeft: '40px' }}>
+          <div>
             <Menu>
-              <MenuButton>
-                <Image w={45} h={45} src={logicon} />
+              <MenuButton className="login">
+                <Image src={logicon} />
               </MenuButton>
               <MenuList>
                 <MenuGroup>
@@ -93,6 +89,7 @@ function Navbar() {
               backgroundColor=" #2D56A5"
               className="button"
               onClick={onOpen}
+              borderRadius={50}
             >
               <span className="button__text">
                 <AddIcon className="button_icon" boxSize={3} /> Добавить
