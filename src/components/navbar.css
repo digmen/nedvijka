@@ -83,7 +83,7 @@
   }
 
 
-  
+
   @keyframes pulse1 {
     0% {
       box-shadow: none;
@@ -96,6 +96,7 @@
     }
   }
   
+
 
 @media (max-width: 1025px){
   .nav_title{
