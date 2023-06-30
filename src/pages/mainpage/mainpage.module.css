@@ -154,3 +154,25 @@
     display: block;
   }
 }
+
+@media (max-width: 1025px) {
+  .container{
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+  
+  .main {
+    margin: 0 auto;
+    max-width: 900px;
+  }
+  
+  .des_card{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
