@@ -6,6 +6,8 @@ import { AddIcon, PhoneIcon } from '@chakra-ui/icons';
 import {
   Button,
   FormControl,
+  FormLabel,
+  Icon,
   Image,
   Input,
   Menu,
@@ -54,7 +56,14 @@ function Navbar() {
           </Link>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
-          <div className="phone_num">
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '10px',
+            }}
+          >
             <PhoneIcon />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <a style={{ fontSize: '18px' }} href="tel:+996550900700">
