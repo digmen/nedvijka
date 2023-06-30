@@ -82,6 +82,7 @@
     height: 45px;
   }
 
+
   
   @keyframes pulse1 {
     0% {
@@ -129,5 +130,9 @@
   .login{
     max-width: 45px;
     min-height: 45px;
+  }
+  .phone_num a{
+    font-size: 14px;
+
   }
 }

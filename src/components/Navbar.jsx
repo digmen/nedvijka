@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logo from '../pages/mainpage/imghome/start_logo.png';
 import './navbar.css';
 import { Link } from 'react-router-dom';
@@ -6,8 +6,6 @@ import { AddIcon, PhoneIcon } from '@chakra-ui/icons';
 import {
   Button,
   FormControl,
-  FormLabel,
-  Icon,
   Image,
   Input,
   Menu,
@@ -55,15 +53,19 @@ function Navbar() {
             <span className="nav_text">Контакты</span>
           </Link>
         </div>
-        <div className='nav_rigtht'>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: '10px',
-            }}
-          >
+
+        <div className="nav_rigtht"></div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '10px',
+          }}
+        ></div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+          <div className="phone_num">
             <PhoneIcon />
             <div className="phone_num2">
               <a href="tel:+996550900700">+996 550 900 700</a>

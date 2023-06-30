@@ -74,7 +74,8 @@ export default function LargeWithAppLinksAndSocial() {
               </SocialButton>
             </Stack>
           </Stack>
-          <Stack ml={10} color={'white'} align={'flex-start'}>
+
+          <Stack minW={250} ml={10} color={'white'} align={'flex-start'}>
             <ListHeader color={'white'}>Свяжитесь с нами</ListHeader>
             <Link color={'white'} href={'#'}>
               Джантошева 121 / Байтик Баатыра, Бишкек, Кыргызстан
@@ -90,7 +91,7 @@ export default function LargeWithAppLinksAndSocial() {
             </Link>
           </Stack>
 
-          <Stack ml={10} color={'white'} align={'flex-start'}>
+          <Stack minW={250} ml={50} color={'white'} align={'flex-start'}>
             <ListHeader color={'white'}>Категории</ListHeader>
             <Link color={'white'} href={'#'}>
               Вторичная недвижимость
@@ -103,19 +104,16 @@ export default function LargeWithAppLinksAndSocial() {
             </Link>
           </Stack>
 
-          <Stack ml={10} color={'white'} align={'flex-start'}>
-            <ListHeader>Legal</ListHeader>
+          <Stack ml={100} color={'white'} align={'flex-start'}>
+            <ListHeader>О нас</ListHeader>
             <Link color={'white'} href={'#'}>
-              Cookies Policy
+              Услуги
             </Link>
             <Link color={'white'} href={'#'}>
-              Privacy Policy
+              Контакты
             </Link>
             <Link color={'white'} href={'#'}>
-              Terms of Service
-            </Link>
-            <Link color={'white'} href={'#'}>
-              Law Enforcement
+              Отзывы
             </Link>
           </Stack>
         </SimpleGrid>
@@ -132,21 +130,10 @@ export default function LargeWithAppLinksAndSocial() {
           py={4}
           direction={{ base: 'column', md: 'row' }}
           spacing={4}
-          justify={{ md: 'space-between' }}
+          justify={{ md: 'center' }}
           align={{ md: 'center' }}
         >
           <Text color={'white'}>© Все авторские права защищены 2023</Text>
-          <Stack direction={'row'} spacing={6}>
-            <SocialButton backgroundColor={'white'} href={'#'}>
-              <BsWhatsapp color="white" />
-            </SocialButton>
-            <SocialButton href={'#'}>
-              <FiPhoneCall color="white" />
-            </SocialButton>
-            <SocialButton href={'#'}>
-              <FaInstagram color="white" />
-            </SocialButton>
-          </Stack>
         </Container>
       </Box>
     </Box>

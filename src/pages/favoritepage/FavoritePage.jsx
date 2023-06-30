@@ -13,6 +13,9 @@ function FavoritePage(props) {
             <button>Добавить</button>
           </Link>
         </div>
+        <div className='sss'>
+        
+        </div>
       </div>
     </>
   );
