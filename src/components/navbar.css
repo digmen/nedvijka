@@ -55,6 +55,13 @@
     background-color: #0D7AE2;
   }
 
+  .phone_num{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
   
   @keyframes pulse1 {
     0% {
@@ -69,3 +76,8 @@
   }
   
 
+@media (max-width: 1025px){
+  .phone_num a{
+    font-size: 14px;
+  }
+}
