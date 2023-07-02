@@ -1,8 +1,7 @@
 import React from 'react';
 import GridListWith from '../../components/Services';
-import ThreeTierPricingHorizontal from '../../components/Services2';
 import Bestbroduct from '../../components/Bestbroduct';
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { Box, Button, FormControl, Input } from '@chakra-ui/react';
 
 function ServicesPage(props) {
   return (

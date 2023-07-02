@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './loginpage.css';
+import styles from './loginpag.css';
 import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [showPass, setShowPass] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
-      login: email,
+      login: login,
       password: password,
     };
 
@@ -37,50 +37,76 @@ const LoginPage = () => {
     return <Navigate to="/" />;
   }
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      login: login,
+      password: password,
+    };
+    try {
+      const response = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/token/login/',
+        data
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Вход выполнен успешно', response);
+        localStorage.setItem('token', response.data.token);
+      } else {
+        console.error('Ошибка входа', response);
+      }
+    } catch (error) {
+      console.error('Ошибка соединения', error);
+    }
+  };
+
   return (
     <div style={{ marginTop: '80px' }}>
-      <div className="main">
+      <div className="lmain">
         <input type="checkbox" id="chk" aria-hidden="true" />
-        <div className="login">
-          <form className="form">
+        <div className="llogin">
+          <form onSubmit={handleLogin} className="lform">
             <label for="chk" aria-hidden="true">
               Log in
             </label>
             <input
-              className="input"
-              type="email"
+              className="linput"
               name="email"
               placeholder="Имя"
               required=""
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
             />
             <input
-              className="input"
+              className="linput"
               type="password"
               name="pswd"
               placeholder="Пароль"
               required=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Войти</button>
+            <button type="submit">Войти</button>
           </form>
         </div>
 
-        <div className="register">
-          <form onSubmit={handleSubmit} className="form">
+        <div className="lregister">
+          <form onSubmit={handleSubmit} className="lform">
             <label for="chk" aria-hidden="true">
               Регистрации
             </label>
             <input
-              className="input"
+              className="linput"
               placeholder="Имя"
-              value={email}
+              value={login}
               autoComplete="username"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setLogin(e.target.value)}
               required=""
             />
             <input
-              className="input"
+              className="linput"
               placeholder="Пароль"
-              type={showPass ? 'text' : 'password'}
               required
               value={password}
               autoComplete="current-password"

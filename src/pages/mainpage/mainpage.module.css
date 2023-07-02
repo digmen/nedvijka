@@ -13,6 +13,18 @@
   max-width: 1400px;
 }
 
+.container span{
+  position: absolute;
+  left: 50%;
+  top: 7%;
+  transform: translate(-50%, -50%);
+  font-size: 38px;
+  text-align: center;
+  width: 1000px;
+}
+
+
+
 .main {
   margin: 0 auto;
   max-width: 1300px;
@@ -31,6 +43,7 @@
   gap: 30px;
   margin-top: 20px;
   overflow: hidden;
+
 }
 
 .product_card h1 {
@@ -152,5 +165,27 @@
   100% {
     opacity: 1;
     display: block;
+  }
+}
+
+@media (max-width: 1025px) {
+  .container{
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+  
+  .main {
+    margin: 0 auto;
+    max-width: 900px;
+  }
+  
+  .des_card{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

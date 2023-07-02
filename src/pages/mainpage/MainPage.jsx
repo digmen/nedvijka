@@ -7,6 +7,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from '@chakra-ui/react';
 import SellHome from '../../components/nedv/SellHome/SellHome';
 import BuyHome from '../../components/nedv/BuyHome/buyHome';
@@ -30,6 +31,10 @@ function MainPage() {
               style={{ width: '100%', maxHeight: '50%' }}
             />
             <div className={mainstyle.container}>
+              <span>
+                Напишите нам прямо сейчас - и мы сэкономим ваше время, нервы и
+                деньги.
+              </span>
               <Tabs
                 bg={'white'}
                 borderRadius={5}
@@ -39,7 +44,7 @@ function MainPage() {
                 backgroundRepeat={'no-repeat'}
                 backgroundSize={'100%'}
                 position={'absolute'}
-                top={100}
+                top={350}
                 right={30}
               >
                 <TabList mb="1em">

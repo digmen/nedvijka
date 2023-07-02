@@ -41,41 +41,26 @@ function AboutPage() {
             АГЕНТСТВО НЕДВИЖИМОСТИ В БИШКЕКЕ
           </span>
           <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '500px',
-              }}
-            >
-              <span style={{ padding: '10px', fontSize: '20px' }}>
+            <div className={aboutstyle.specialist_text1}>
+              <span>
                 Агентство недвижимости в городе Бишкек ведущая компания в сфере
                 недвижимости. Мы собрали в одном месте лучших экспертов рынка,
                 чтобы предложить клиентам лучшее – профессиональные рекомендации
                 и самые выгодные предложения по продаже и покупке недвижимости!
               </span>
-              <span style={{ padding: '10px', fontSize: '18px' }}>
+              <span>
                 Высокий сервис и безупречное качество предоставления услуг – это
                 фундамент, на котором строится работа всей нашей команды. Мы за
                 прозрачность и открытость в сделках!
               </span>
             </div>
-            <img
-              style={{ width: '600px', height: '400px', borderRadius: '5px' }}
-              src="https://img-fotki.yandex.ru/get/4424/26720365.c3/0_78046_948a62d7_orig.jpg"
-            ></img>
+            <img src="https://img-fotki.yandex.ru/get/4424/26720365.c3/0_78046_948a62d7_orig.jpg"></img>
           </div>
         </section>
         <section style={{ marginTop: '100px' }}>
-          <div
-            style={{
-              display: 'flex',
-              textAlign: 'center',
-              flexDirection: 'column',
-            }}
-          >
+          <div className={aboutstyle.specialist_text2}>
             <h1 style={{ fontSize: '24px' }}>СПЕЦИАЛИСТЫ</h1>
-            <span style={{ width: '1300px' }}>
+            <span>
               Мы собрали в одном месте лучших экспертов рынка, чтобы предложить
               вам лучшее – профессиональные рекомендации и самые выгодные
               предложения по продаже и покупке недвижимости! Агентство
@@ -90,18 +75,6 @@ function AboutPage() {
             justifyContent: 'space-evenly',
           }}
         >
-          <Box m={10} w={350} borderWidth="1px" overflow="hidden">
-            <Image style={{ width: '100%' }} src={photo1} />
-            <Box p="6">
-              <Box fontSize={18}>Имя содрудника</Box>
-            </Box>
-          </Box>
-          <Box m={10} w={350} borderWidth="1px" overflow="hidden">
-            <Image style={{ width: '100%' }} src={photo1} />
-            <Box p="6">
-              <Box fontSize={18}>Имя содрудника</Box>
-            </Box>
-          </Box>
           <Box m={10} w={350} borderWidth="1px" overflow="hidden">
             <Image style={{ width: '100%' }} src={photo1} />
             <Box p="6">

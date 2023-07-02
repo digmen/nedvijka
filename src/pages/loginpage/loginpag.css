@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
-  .main {
+  .lmain {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -13,14 +13,14 @@
     margin: 0 auto;
   }
   
-  .form {
+  .lform {
     display: flex;
     flex-direction: column;
     gap: 24px;
     padding: 24px;
     padding-bottom: 140px;
   }
-  .form button:hover {
+  .lform button:hover {
     background: #573b8a;
   }
   
@@ -28,13 +28,13 @@
     display: none;
   }
   
-  .login {
+  .llogin {
     position: relative;
     width: 100%;
     height: 50%;
   }
   
-  .login label {
+  .llogin label {
     margin: 15% 0 5%;
   }
   
@@ -48,7 +48,7 @@
     transition: .5s ease-in-out;
   }
   
-  .input {
+  .linput {
     width: 100%;
     height: 40px;
     background: #ffffff;
@@ -59,33 +59,33 @@
   }
   
   /*Register*/
-  .register {
+  .lregister {
     background: #2791f5;
     border-radius: 60% / 10%;
     transform: translateY(5%);
     transition: .8s ease-in-out;
   }
   
-  .register label {
+  .lregister label {
     color: #573b8a;
     transform: scale(.6);
   }
   
-  #chk:checked ~ .register {
+  #chk:checked ~ .lregister {
     transform: translateY(-60%);
   }
   
-  #chk:checked ~ .register label {
+  #chk:checked ~ .lregister label {
     transform: scale(1);
     margin: 10% 0 5%;
   }
   
-  #chk:checked ~ .login label {
+  #chk:checked ~ .llogin label {
     transform: scale(.6);
     margin: 5% 0 5%;
   }   
   /*Button*/
-  .form button {
+  .lform button {
     width: 85%;
     height: 40px;
     margin: 12px auto 10%;

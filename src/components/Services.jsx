@@ -1,29 +1,34 @@
 import {
   Box,
-  Button,
+  Center,
   Container,
   Flex,
   Heading,
   Icon,
   Stack,
   Text,
-  useColorModeValue,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
 import { FcLibrary, FcMoneyTransfer } from 'react-icons/fc';
 import { AiFillHome } from 'react-icons/ai';
 import { FaMoneyBillWave } from 'react-icons/fa';
 
 import './service.css';
+import { createEvent } from '@testing-library/react';
 
 const Card = ({ heading, description, icon, href }) => {
   return (
     <Box
       minW={300}
+      maxW={300}
+      maxH={150}
+      minH={150}
       w={'full'}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      p={5}
+      p={2}
       bg={'#2D56A5'}
     >
       <Stack align={'start'} spacing={2}>
@@ -35,6 +40,7 @@ const Card = ({ heading, description, icon, href }) => {
           color={'white'}
           rounded={'full'}
           bg={'white'}
+          ml={2}
         >
           {icon}
         </Flex>
@@ -58,12 +64,7 @@ export default function GridListWith() {
         <Heading fontSize={40} fontWeight={'bold'}>
           Наши Услуги
         </Heading>
-        <Text
-          textAlign={'center'}
-          color={'gray.600'}
-          fontSize={24}
-          className="service_text"
-        >
+        <Text textAlign={'center'} color={'gray.600'} className="service_text">
           Агентство недвижимости №1 предлагает широкий спектр услуг по
           покупке-продажи недвижимости.
           <br />
@@ -77,26 +78,32 @@ export default function GridListWith() {
         </Text>
       </Stack>
 
-      <Container maxW={'5xl'} mt={12}>
-        <Flex gridGap={3} justify="center">
-          <Card
-            heading={'Продажа / Покупка'}
-            icon={<Icon color={'black'} as={AiFillHome} w={10} h={10} />}
-          />
-          <Card
-            heading={'Срочный выкуп за 1 час'}
-            icon={<Icon color={'green'} as={FaMoneyBillWave} w={10} h={10} />}
-          />
-          <Card
-            heading={'Юридическое сопровождение'}
-            icon={<Icon as={FcLibrary} w={10} h={10} />}
-          />
+      <Wrap justify="center" mt={55}>
+        <WrapItem>
           <Card
             heading={'Оценка недвижимости'}
             icon={<Icon as={FcMoneyTransfer} w={10} h={10} />}
           />
-        </Flex>
-      </Container>
+        </WrapItem>
+        <WrapItem>
+          <Card
+            heading={'Юридическое сопровождение'}
+            icon={<Icon as={FcLibrary} w={10} h={10} />}
+          />
+        </WrapItem>
+        <WrapItem>
+          <Card
+            heading={'Срочный выкуп за 1 час'}
+            icon={<Icon color={'green'} as={FaMoneyBillWave} w={10} h={10} />}
+          />
+        </WrapItem>
+        <WrapItem>
+          <Card
+            heading={'Продажа / Покупка'}
+            icon={<Icon color={'black'} as={AiFillHome} w={10} h={10} />}
+          />
+        </WrapItem>
+      </Wrap>
     </Box>
   );
 }
