@@ -48,9 +48,6 @@ function Abouttwo() {
           </SimpleGrid>
         </div>
       </div>
-      <footer>
-        <img style={{ width: '100%', marginTop: '147px' }} src={footer} />
-      </footer>
     </>
   );
 }

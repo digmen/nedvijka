@@ -43,12 +43,7 @@ const BuyOne = () => {
         <div className="und1">
           <Input htmlSize={73} placeholder="Введите район, улицу,дом или ЖК" />
         </div>
-        <div className="und2">
-          <Button width={190} background={'transparent'} color={'#2a72ee'}>
-            <ArrowUpIcon />
-            Расширенный поиск
-          </Button>
-        </div>
+    
         <div className="und3">
           <Button width={280} bgColor={'#2D56A5'} color={'white'}>
             Показать 11 предложений

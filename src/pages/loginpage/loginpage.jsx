@@ -7,6 +7,7 @@ const LoginPage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,10 +50,13 @@ const LoginPage = () => {
         'https://vm4506017.43ssd.had.wf/api/token/login/',
         data
       );
+      localStorage.setItem('access', response.data.access);
+      localStorage.setItem('refresh', response.data.refresh);
+      localStorage.setItem('login', data.login);
 
       if (response.status >= 200 && response.status < 300) {
         console.log('Вход выполнен успешно', response);
-        localStorage.setItem('token', response.data.token);
+        setLoginSuccess(true);
       } else {
         console.error('Ошибка входа', response);
       }
@@ -60,6 +64,10 @@ const LoginPage = () => {
       console.error('Ошибка соединения', error);
     }
   };
+
+  if (loginSuccess) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div style={{ marginTop: '80px' }}>

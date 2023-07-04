@@ -11,6 +11,11 @@
     margin-bottom: 20px;
 }
 
+.und{
+    display: flex;
+    gap: 10px;
+}
+
 .under{
     justify-content: space-between;
     display: flex;

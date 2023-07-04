@@ -48,21 +48,20 @@ const BuyTwo = () => {
         </div>
       </div>
       <div className="under">
-        <div className="und1">
-          <Input htmlSize={56} placeholder="Введите район, улицу,дом или ЖК" />
-        </div>
-        <div className="und2">
-          <Select width={141} placeholder="Срок сдачи">
-            <option value="option1">1 год</option>
-            <option value="option2">2 года</option>
-            <option value="option3">3 года</option>
-          </Select>
-        </div>
-        <div className="und3">
-          <Button width={190} background={'transparent'} color={'#2a72ee'}>
-            <ArrowUpIcon />
-            Расширенный поиск
-          </Button>
+        <div className='und'>
+          <div className="und1">
+            <Input
+              htmlSize={56}
+              placeholder="Введите район, улицу,дом или ЖК"
+            />
+          </div>
+          <div className="und2">
+            <Select width={141} placeholder="Срок сдачи">
+              <option value="option1">1 год</option>
+              <option value="option2">2 года</option>
+              <option value="option3">3 года</option>
+            </Select>
+          </div>
         </div>
         <div className="und4">
           <Button width={280} bgColor={'#2D56A5'} color={'white'}>

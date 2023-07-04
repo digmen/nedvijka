@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../pages/mainpage/imghome/start_logo.png';
 import './navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AddIcon, PhoneIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -23,12 +23,55 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import logicon from './img/logicon.png';
+import axios from 'axios';
 
 function Navbar() {
+  // дата для создание обращений обявлений
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  // модальное окно
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+
+  useEffect(() => {
+    const storedLogin = localStorage.getItem('login');
+    if (storedLogin) {
+      setLogin(storedLogin);
+    }
+  }, []);
+
+  const [login, setLogin] = useState(true);
+  const handleLogOut = () => {
+    localStorage.clear('');
+    return <Navigate to="/" />;
+    setLogin(false);
+  };
+
+  const handleSubmitTel = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: name,
+      phone: phone,
+    };
+
+    try {
+      const response = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/ads/',
+        data
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Регистрация прошла успешно', response);
+        console.log(response);
+      } else {
+        console.error('Ошибка регистрации');
+      }
+    } catch (error) {
+      console.error('Ошибка соединения', error);
+    }
+  };
 
   return (
     <div>
@@ -73,18 +116,32 @@ function Navbar() {
             </div>
           </div>
           <div>
-            <Menu>
-              <MenuButton className="login">
-                <Image src={logicon} />
-              </MenuButton>
-              <MenuList>
-                <MenuGroup>
-                  <Link to="/login">
-                    <MenuItem>Регистрация</MenuItem>
-                  </Link>
-                </MenuGroup>
-              </MenuList>
-            </Menu>
+            {login ? (
+              <Menu>
+                <MenuButton className="login">
+                  <Image src={logicon} />
+                </MenuButton>
+                <MenuList>
+                  <MenuGroup>
+                    <MenuItem>{login}</MenuItem>
+                    <MenuItem onClick={handleLogOut}>Выйти</MenuItem>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Menu>
+                <MenuButton className="login">
+                  <Image src={logicon} />
+                </MenuButton>
+                <MenuList>
+                  <MenuGroup>
+                    <Link to="/login">
+                      <MenuItem>Регистрация</MenuItem>
+                    </Link>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
+            )}
           </div>
           <div>
             <Button
@@ -109,6 +166,23 @@ function Navbar() {
                 <ModalHeader>Отправить запрос</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
+                  <form onSubmit={handleSubmitTel}>
+                    <button
+                      style={{
+                        backgroundColor: 'black',
+                        width: '10px',
+                        height: '10px',
+                      }}
+                    ></button>
+                    <input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    ></input>
+                    <input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    ></input>
+                  </form>
                   <FormControl>
                     <Input
                       mb={5}
@@ -116,15 +190,15 @@ function Navbar() {
                       type="text"
                       placeholder="Имя"
                     />
-                    <Input type="tel" placeholder="Телфон" />
+                    <Input type="number" placeholder="Телфон" />
+                    <ModalFooter>
+                      <Button colorScheme="blue" mr={3}>
+                        Отправить
+                      </Button>
+                      <Button onClick={onClose}>Закрыть</Button>
+                    </ModalFooter>
                   </FormControl>
                 </ModalBody>
-                <ModalFooter>
-                  <Button colorScheme="blue" mr={3}>
-                    Отправить
-                  </Button>
-                  <Button onClick={onClose}>Закрыть</Button>
-                </ModalFooter>
               </ModalContent>
             </Modal>
           </div>
