@@ -73,10 +73,7 @@ function ProductContext({ children }) {
 
   async function getReview() {
     try {
-      const { data } = await axios.get(
-        'https://vm4506017.43ssd.had.wf/api/review/'
-      );
-      console.log(data);
+      const { data } = await axios.get(`${BASE_URL}/review/`);
       dispatch({
         type: ACTIONS.review,
         payload: data.results,

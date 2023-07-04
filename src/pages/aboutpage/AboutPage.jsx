@@ -93,12 +93,6 @@ function AboutPage() {
               <Box fontSize={18}>Имя содрудника</Box>
             </Box>
           </Box>
-          <Box m={10} w={350} borderWidth="1px" overflow="hidden">
-            <Image style={{ width: '100%' }} src={photo1} />
-            <Box p="6">
-              <Box fontSize={18}>Имя содрудника</Box>
-            </Box>
-          </Box>
         </section>
         <div className={aboutstyle.reviews}>
           <h1>Отзывы наших клиентов</h1>
@@ -131,14 +125,6 @@ function AboutPage() {
               Посмотреть все
             </Button>
           </Link>
-          <div style={{ marginTop: '100px' }}>
-            <Link to="/">
-              <Button p={7} colorScheme="facebook">
-                <Image paddingRight={5} src={circle} />
-                Перейти на сайт
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
     </>

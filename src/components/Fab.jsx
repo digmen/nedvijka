@@ -12,9 +12,9 @@ const Fab = () => {
       <a className="adminButton" href="#!">
         <i>
           <IoMdChatboxes />
-          <span class="pulse-button__rings"></span>
-          <span class="pulse-button__rings"></span>
-          <span class="pulse-button__rings"></span>
+          <span className="pulse-button__rings"></span>
+          <span className="pulse-button__rings"></span>
+          <span className="pulse-button__rings"></span>
         </i>
       </a>
       <div className="adminButtons">
