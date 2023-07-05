@@ -1,6 +1,5 @@
 import {
   Box,
-  Center,
   Container,
   Flex,
   Heading,
@@ -15,9 +14,8 @@ import { AiFillHome } from 'react-icons/ai';
 import { FaMoneyBillWave } from 'react-icons/fa';
 
 import './service.css';
-import { createEvent } from '@testing-library/react';
 
-const Card = ({ heading, description, icon, href }) => {
+const Card = ({ heading, description, icon }) => {
   return (
     <Box
       minW={300}

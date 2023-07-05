@@ -113,7 +113,7 @@ function AboutPage() {
                   ))}
                 </div>
                 <span className={aboutstyle.description}>
-                  {item.results.review_text}
+                  {item.review_text}
                 </span>
               </div>
             ))}

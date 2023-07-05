@@ -47,13 +47,13 @@ function Navbar() {
     return <Navigate to="/" />;
   };
 
-  // дата для создание обращений обявлений
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-
+  
   const handleSubmitTel = async (e) => {
     e.preventDefault();
-
+    
+    // дата для создание обращений обявлений
     const data = {
       name: name,
       phone: phone,

@@ -5,6 +5,17 @@
     font-size: 24px;
 }
 
+.form_service{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form_service button{
+    width: 150px;
+}
+
 @media (max-width: 1025px) {
 
     .service_text{

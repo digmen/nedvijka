@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import aboutstyle from './about.module.css';
 import { SimpleGrid } from '@chakra-ui/react';
-import footer from './ftbg1.svg';
 import { useProductContext } from '../../contexts/ProductContext';
 
 function Abouttwo() {
