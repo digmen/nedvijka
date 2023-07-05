@@ -23,6 +23,8 @@ function reducer(state, action) {
       return { ...state, oneProduct: action.payload };
     case ACTIONS.bestproducts:
       return { ...state, bestproducts: action.payload };
+    case ACTIONS.review:
+      return { ...state, review: action.payload };
     default:
       return state;
   }
@@ -74,6 +76,7 @@ function ProductContext({ children }) {
   async function getReview() {
     try {
       const { data } = await axios.get(`${BASE_URL}/review/`);
+      console.log(data);
       dispatch({
         type: ACTIONS.review,
         payload: data.results,

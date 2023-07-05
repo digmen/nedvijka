@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 const LoginPage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 

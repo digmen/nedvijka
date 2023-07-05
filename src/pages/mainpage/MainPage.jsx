@@ -7,7 +7,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Text,
 } from '@chakra-ui/react';
 import SellHome from '../../components/nedv/SellHome/SellHome';
 import BuyHome from '../../components/nedv/BuyHome/buyHome';

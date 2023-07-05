@@ -26,9 +26,6 @@ import logicon from './img/logicon.png';
 import axios from 'axios';
 
 function Navbar() {
-  // дата для создание обращений обявлений
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   // модальное окно
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -42,12 +39,17 @@ function Navbar() {
     }
   }, []);
 
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState();
+
   const handleLogOut = () => {
     localStorage.clear('');
-    return <Navigate to="/" />;
     setLogin(false);
+    return <Navigate to="/" />;
   };
+
+  // дата для создание обращений обявлений
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleSubmitTel = async (e) => {
     e.preventDefault();
@@ -63,16 +65,14 @@ function Navbar() {
         data
       );
       if (response.status >= 200 && response.status < 300) {
-        console.log('Регистрация прошла успешно', response);
-        console.log(response);
+        console.log('Данные отправлены');
       } else {
-        console.error('Ошибка регистрации');
+        console.error('Ошибка данныч');
       }
     } catch (error) {
       console.error('Ошибка соединения', error);
     }
   };
-
   return (
     <div>
       <nav className="nav">
@@ -167,37 +167,43 @@ function Navbar() {
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                   <form onSubmit={handleSubmitTel}>
-                    <button
-                      style={{
-                        backgroundColor: 'black',
-                        width: '10px',
-                        height: '10px',
-                      }}
-                    ></button>
-                    <input
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    ></input>
-                    <input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    ></input>
-                  </form>
-                  <FormControl>
                     <Input
                       mb={5}
                       ref={initialRef}
                       type="text"
+                      value={name}
+                      required=""
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="Имя"
                     />
-                    <Input type="number" placeholder="Телфон" />
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3}>
+                    <Input
+                      placeholder="Телфон"
+                      required=""
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                    <div
+                      style={{
+                        marginTop: '10px',
+                        display: 'flex',
+                        gap: '10px',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <button
+                        style={{
+                          backgroundColor: '#284F9A',
+                          padding: '7px',
+                          borderRadius: '5px',
+                          color: 'white',
+                        }}
+                      >
                         Отправить
-                      </Button>
+                      </button>
                       <Button onClick={onClose}>Закрыть</Button>
-                    </ModalFooter>
-                  </FormControl>
+                    </div>
+                  </form>
                 </ModalBody>
               </ModalContent>
             </Modal>

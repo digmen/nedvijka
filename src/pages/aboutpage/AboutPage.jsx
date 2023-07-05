@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import aboutstyle from './about.module.css';
 import { Box, Button, Image, SimpleGrid } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import circle from './Iconcircle.svg';
 import bg1 from './bg1.svg';
 import photo1 from './photo.svg';
-import footer from './ftbg1.svg';
 import { useProductContext } from '../../contexts/ProductContext';
 
 function AboutPage() {
