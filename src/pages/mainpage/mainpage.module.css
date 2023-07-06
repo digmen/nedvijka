@@ -16,13 +16,12 @@
 .container span{
   position: absolute;
   left: 50%;
-  top: 7%;
+  top: 4%;
   transform: translate(-50%, -50%);
   font-size: 38px;
   text-align: center;
   width: 1000px;
 }
-
 
 
 .main {
@@ -39,11 +38,13 @@
 }
 
 .card {
-  display: flex;
-  gap: 30px;
-  margin-top: 20px;
   overflow: hidden;
+}
 
+.p_card{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 }
 
 .product_card h1 {
@@ -55,48 +56,6 @@
   justify-content: center;
 }
 
-.card_slider_conatiner{
-  display:flex;
-  justify-content : center;
-  align-item : center;
-}
-
-.main_slider_contianer{
-  display:flex;
-  width:90%;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-.slider{
-  white-space:nowrap;
-  overflow-x:scroll;
-  scrollbar-width:none;
-  scroll-behavior : smooth;
-}
-
-.slider_icon_left , .slider_icon_right{
-  opacity:0.2;
-  box-shadow: 5px 5px 1.25rem 0px rgb(0 0 0 / 12%);
-  curser:pointer;
-  height: 5px;
-}
-
-.slider_icon_left:hover , .slider_icon_right:hover{
-  opacity:1;
-}
-
-.slider_card{
-  display:inline-block;
-  border-radius:10px;
-  margin-left:5px;
-  margin-right:5px;
-}
-
-
-.slider::-webkit-scrollbar{
-  display:none;
-}
 
 .description{
   margin-top: 100px;

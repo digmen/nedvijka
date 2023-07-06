@@ -42,33 +42,86 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const data = {
-      login: login,
-      password: password,
-    };
     try {
+      // Запрос GET для получения данных суперпользователя
+      const superUserResponse = await axios.get(
+        'https://vm4506017.43ssd.had.wf/api/users?limit=10000000'
+      );
+      const superUserData = superUserResponse.data.results;
+
+      // Запрос POST для выполнения входа
+      const data = {
+        login: login,
+        password: password,
+      };
       const response = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/token/login/',
         data
       );
-      localStorage.setItem('access', response.data.access);
-      localStorage.setItem('refresh', response.data.refresh);
-      localStorage.setItem('login', data.login);
+      // Обработка успешного входа
+      console.log('Вход выполнен успешно', response);
+      setLoginSuccess(true);
 
-      if (response.status >= 200 && response.status < 300) {
-        console.log('Вход выполнен успешно', response);
-        setLoginSuccess(true);
+      // Проверка, является ли пользователь суперпользователем
+
+      if (superUserData === false) {
+        console.log('Пользователь - суперпользователь');
+        // Действия для суперпользователя
       } else {
-        console.error('Ошибка входа', response);
+        console.log('Пользователь - обычный пользователь');
+        // Действия для обычного пользователя
       }
     } catch (error) {
-      console.error('Ошибка соединения', error);
+      // Обработка ошибок входа
+      console.error('Ошибка входа', error);
     }
+    // if (loginSuccess) {
+    //   return <Navigate to="/" />;
+    // }
   };
 
-  if (loginSuccess) {
-    return <Navigate to="/" />;
-  }
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   const data = {
+  //     login: login,
+  //     password: password,
+  //   };
+  //   try {
+  //     const response = await axios.post(
+  //       'https://vm4506017.43ssd.had.wf/api/token/login/',
+  //       data
+  //     );
+  //     localStorage.setItem('access', response.data.access);
+  //     localStorage.setItem('refresh', response.data.refresh);
+  //     localStorage.setItem('login', data.login);
+
+  //     if (response.status >= 200 && response.status < 300) {
+  //       console.log('Вход выполнен успешно', response);
+  //       setLoginSuccess(true);
+  //       const isSuperUser = response.data.is_superuser === true;
+  //       if (
+  //         isSuperUser &&
+  //         response.data.login === data.login &&
+  //         response.data.password === data.password
+  //       ) {
+  //         console.log('Пользователь - суперпользователь');
+  //         return <Navigate to="/" />;
+  //       } else {
+  //         console.log('Пользователь - обычный пользователь');
+  //         return <Navigate to="/" />;
+  //       }
+  //     } else {
+  //       console.error('Ошибка входа', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Ошибка соединения', error);
+  //   }
+  // };
+
+  // if (loginSuccess) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <div style={{ marginTop: '80px' }}>

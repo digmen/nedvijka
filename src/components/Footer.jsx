@@ -14,7 +14,7 @@ import {
 import { FaInstagram } from 'react-icons/fa';
 import { BsWhatsapp } from 'react-icons/bs';
 import { FiPhoneCall } from 'react-icons/fi';
-import logo from '../pages/mainpage/imghome/start_logo.png';
+import logo from '../pages/mainpage/imghome/start_logo.svg';
 
 const ListHeader = ({ children }) => {
   return (

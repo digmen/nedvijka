@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useProductContext } from '../contexts/ProductContext';
 import mainstyle from '../pages/mainpage/mainpage.module.css';
@@ -10,10 +10,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
-import axios from 'axios';
-import { BASE_URL } from '../utils/const';
 
-function Bestbroduct(props) {
+function Bestbroduct() {
   const { bestproducts, getBestProducts } = useProductContext();
 
   useEffect(() => {
@@ -28,9 +26,10 @@ function Bestbroduct(props) {
           spaceBetween={1}
           navigation={true}
           modules={[Navigation]}
+          style={{ maxWidth: '1300px' }}
         >
           {bestproducts.map((apartment) => (
-            <SwiperSlide key={apartment.id} display="flex">
+            <SwiperSlide key={apartment.id}>
               <Box className={mainstyle.card}>
                 <Box
                   maxW="sm"

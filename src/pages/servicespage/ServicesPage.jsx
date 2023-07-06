@@ -34,7 +34,7 @@ function ServicesPage() {
     }
   };
   return (
-    <div style={{ margin: '0 auto', maxWidth: '1300px' }}>
+    <div style={{ margin: '0 auto', maxWidth: '1400px' }}>
       <GridListWith />
       <Bestbroduct />
       <Box display={'flex'} justifyContent={'center'}>
@@ -74,7 +74,6 @@ function ServicesPage() {
                 padding: '7px',
                 borderRadius: '5px',
                 color: 'white',
-              
               }}
             >
               Отправить

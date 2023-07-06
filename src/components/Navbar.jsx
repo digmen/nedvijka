@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../pages/mainpage/imghome/start_logo.png';
+import logo from '../pages/mainpage/imghome/start_logo.svg';
 import './navbar.css';
 import { Link, Navigate } from 'react-router-dom';
 import { AddIcon, PhoneIcon } from '@chakra-ui/icons';
 import {
   Button,
-  FormControl,
   Image,
   Input,
   Menu,
@@ -17,7 +16,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
@@ -49,10 +47,10 @@ function Navbar() {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  
+
   const handleSubmitTel = async (e) => {
     e.preventDefault();
-    
+
     // дата для создание обращений обявлений
     const data = {
       name: name,

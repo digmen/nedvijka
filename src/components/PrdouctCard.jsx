@@ -18,7 +18,7 @@ function ProductCard() {
   return (
     <div className={mainstyle.product_card}>
       <h1>Наши объекты</h1>
-      <div className={mainstyle.card}>
+      <div className={mainstyle.p_card}>
         {products.map((item) => (
           <Box key={item.id} className={mainstyle.card}>
             <Box
