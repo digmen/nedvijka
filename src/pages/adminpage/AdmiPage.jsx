@@ -21,16 +21,51 @@ function AdmiPage() {
   const [document, setDocument] = useState('');
   const [description, setDescription] = useState('');
 
-  const refresh = localStorage.getItem('adminRefresh');
-  const access = localStorage.getItem('adminAccess');
+  // const refresh = localStorage.getItem('adminRefresh');
+  // const access = localStorage.getItem('adminAccess');
 
   const handleSubmitAdmin = async (e) => {
     e.preventDefault();
+
     try {
+      const response = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/token/refresh/',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const newAccessToken = response.data.access;
+        // Обновление значения access в localStorage или в другом месте, где вы храните токен access
+        localStorage.setItem('accessToken', newAccessToken);
+        console.log('Токен успешно обновлен');
+      } else {
+        console.error('Ошибка обновления токена');
+      }
+    } catch (error) {
+      console.error('Ошибка соединения', error);
+    }
+
+    try {
+      // Получение данных из localStorage
       const refreshData = {
-        refresh: localStorage.getItem('refresh'), // Получение данных refresh из localStorage или из другого источника
+        refresh: localStorage.getItem('adminRefresh'),
       };
 
+      // Отправка POST-запроса для обновления токена
+      const refreshResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/token/refresh/',
+        refreshData
+      );
+
+      // Проверка успешности выполнения запроса обновления токена
+      if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
+        console.log('yes');
+      }
       const data = {
         type: type,
         address: address,
@@ -43,13 +78,17 @@ function AdmiPage() {
         communications: communications,
         document: document,
         description: description,
-        response: localStorage.getItem('adminAccess'), // Предоставление access в заголовке Authorization
-        responseText: localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
       };
 
       const response = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/apartment/',
-        data
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
+          },
+        }
       );
 
       if (response.status >= 200 && response.status < 300) {
