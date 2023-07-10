@@ -7,10 +7,9 @@ import FavoritePage from '../pages/favoritepage/FavoritePage';
 import ServicesPage from '../pages/servicespage/ServicesPage';
 import ContactPage from '../pages/contactpage/ContactPage';
 import DeteilPage from '../pages/deteilpage/DeteilPage';
-// import LoginPage from '../pages/loginpage/Loginpage';
 import Abouttwo from '../pages/aboutpage/Abouttwo';
 import LoginPage from '../pages/loginpage/LoginPage';
-// import Loginpage from '../pages/loginpage/Loginpage';
+import AdmiPage from '../pages/adminpage/AdmiPage';
 
 function MainRoutes() {
   return (
@@ -24,6 +23,7 @@ function MainRoutes() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/details/:id" element={<DeteilPage />} />
+        <Route path="/admin" element={<AdmiPage />} />
       </Route>
     </Routes>
   );

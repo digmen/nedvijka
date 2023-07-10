@@ -25,6 +25,8 @@ function reducer(state, action) {
       return { ...state, bestproducts: action.payload };
     case ACTIONS.review:
       return { ...state, review: action.payload };
+    case ACTIONS.f:
+      return { ...state, f: action.payload };
     default:
       return state;
   }
@@ -76,9 +78,22 @@ function ProductContext({ children }) {
   async function getReview() {
     try {
       const { data } = await axios.get(`${BASE_URL}/review/`);
-      console.log(data);
       dispatch({
         type: ACTIONS.review,
+        payload: data.results,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getF() {
+    try {
+      const { data } = await axios.get(
+        `https://vm4506017.43ssd.had.wf/api/favorite/`
+      );
+      dispatch({
+        type: ACTIONS.f,
         payload: data.results,
       });
     } catch (error) {
@@ -95,6 +110,8 @@ function ProductContext({ children }) {
     review: state.review,
     getBestProducts,
     bestproducts: state.bestproducts,
+    getF,
+    f: state.f,
   };
 
   return (

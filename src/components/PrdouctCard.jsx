@@ -7,6 +7,8 @@ import { TiLocation } from 'react-icons/ti';
 import { BiShapeSquare } from 'react-icons/bi';
 import { Badge, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import axios from 'axios';
 
 function ProductCard() {
   const { products, getProducts } = useProductContext();
@@ -98,6 +100,8 @@ function ProductCard() {
                   justifyContent={'space-between'}
                 >
                   {item.price} $
+                  <AiFillHeart color="red" fontSize={'35px'} />
+                  <AiOutlineHeart color="red" fontSize={'35px'} />
                 </Box>
               </Box>
             </Box>

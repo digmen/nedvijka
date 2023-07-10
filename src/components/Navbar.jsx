@@ -24,21 +24,25 @@ import logicon from './img/logicon.png';
 import axios from 'axios';
 
 function Navbar() {
-  // модальное окно
+  //! модальное окн
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  //! вывод акк и выхода с акк
+  const [superUser, setSuperUser] = useState();
   useEffect(() => {
-    const storedLogin = localStorage.getItem('login');
-    if (storedLogin) {
-      setLogin(storedLogin);
-    }
-  }, []);
+    const storegBtn = localStorage.getItem('superUser') === 'true';
+    setSuperUser(storegBtn);
+  });
 
   const [login, setLogin] = useState();
+  useEffect(() => {
+    const storedLogin = localStorage.getItem('login');
+    setLogin(storedLogin);
+  }, []);
 
+  //! Для выхода из аккаунта любого
   const handleLogOut = () => {
     localStorage.clear('');
     setLogin(false);
@@ -48,6 +52,7 @@ function Navbar() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
+  //! функция обратной связи
   const handleSubmitTel = async (e) => {
     e.preventDefault();
 
@@ -93,6 +98,20 @@ function Navbar() {
           <Link to="/contact">
             <span className="nav_text">Контакты</span>
           </Link>
+          {superUser ? (
+            <Link to="/admin">
+              <Button
+                backgroundColor=" #2D56A5"
+                borderRadius={5}
+                _hover={'#0D7AE2'}
+                color={'white'}
+              >
+                Добавить
+              </Button>
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className="nav_rigtht"></div>
@@ -122,7 +141,9 @@ function Navbar() {
                 <MenuList>
                   <MenuGroup>
                     <MenuItem>{login}</MenuItem>
-                    <MenuItem onClick={handleLogOut}>Выйти</MenuItem>
+                    <Link to="/">
+                      <MenuItem onClick={handleLogOut}>Выйти</MenuItem>
+                    </Link>
                   </MenuGroup>
                 </MenuList>
               </Menu>
@@ -147,6 +168,7 @@ function Navbar() {
               className="button"
               onClick={onOpen}
               borderRadius={50}
+              _hover={'#0D7AE2'}
             >
               <span className="button__text">
                 <AddIcon className="button_icon" boxSize={3} /> Добавить

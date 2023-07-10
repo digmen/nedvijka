@@ -4,7 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 
@@ -16,7 +16,7 @@
 .container span{
   position: absolute;
   left: 50%;
-  top: 4%;
+  top: 6%;
   transform: translate(-50%, -50%);
   font-size: 38px;
   text-align: center;

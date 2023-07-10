@@ -36,8 +36,15 @@
   
   .llogin label {
     margin: 15% 0 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
+  .llogin span{
+    font-size: 16px;
+  }
+
   label {
     color: #fff;
     font-size: 2rem;

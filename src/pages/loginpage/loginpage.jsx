@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import styles from './loginpag.css';
 import { Navigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
+  // Функция для регистрации
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,17 +40,16 @@ const LoginPage = () => {
     return <Navigate to="/" />;
   }
 
+  //! функция входа
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      // Запрос GET для получения данных суперпользователя
       const superUserResponse = await axios.get(
-        'https://vm4506017.43ssd.had.wf/api/users?limit=10000000'
+        'https://vm4506017.43ssd.had.wf/api/users?limit=500000'
       );
       const superUserData = superUserResponse.data.results;
 
-      // Запрос POST для выполнения входа
       const data = {
         login: login,
         password: password,
@@ -58,70 +58,30 @@ const LoginPage = () => {
         'https://vm4506017.43ssd.had.wf/api/token/login/',
         data
       );
-      // Обработка успешного входа
-      console.log('Вход выполнен успешно', response);
+      console.log('Вход выполнен успешно');
       setLoginSuccess(true);
 
-      // Проверка, является ли пользователь суперпользователем
-
-      if (superUserData === false) {
-        console.log('Пользователь - суперпользователь');
-        // Действия для суперпользователя
+      const user = superUserData.find((result) => result.login === login);
+      if (user && user.is_superuser === false) {
+        localStorage.setItem('login', data.login);
+        localStorage.setItem('access', response.data.access);
+        localStorage.setItem('refresh', response.data.refresh);
+        localStorage.setItem('id', response.data.id);
       } else {
-        console.log('Пользователь - обычный пользователь');
-        // Действия для обычного пользователя
+        localStorage.setItem('login', user.first_name);
+        localStorage.setItem('lastNameAdmin', user.last_name);
+        localStorage.setItem('superUser', user.is_superuser);
+        localStorage.setItem('id', user.id);
+        localStorage.setItem('adminAccess', response.data.access);
+        localStorage.setItem('adminRefresh', response.data.refresh);
       }
     } catch (error) {
-      // Обработка ошибок входа
       console.error('Ошибка входа', error);
     }
-    // if (loginSuccess) {
-    //   return <Navigate to="/" />;
-    // }
   };
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     login: login,
-  //     password: password,
-  //   };
-  //   try {
-  //     const response = await axios.post(
-  //       'https://vm4506017.43ssd.had.wf/api/token/login/',
-  //       data
-  //     );
-  //     localStorage.setItem('access', response.data.access);
-  //     localStorage.setItem('refresh', response.data.refresh);
-  //     localStorage.setItem('login', data.login);
-
-  //     if (response.status >= 200 && response.status < 300) {
-  //       console.log('Вход выполнен успешно', response);
-  //       setLoginSuccess(true);
-  //       const isSuperUser = response.data.is_superuser === true;
-  //       if (
-  //         isSuperUser &&
-  //         response.data.login === data.login &&
-  //         response.data.password === data.password
-  //       ) {
-  //         console.log('Пользователь - суперпользователь');
-  //         return <Navigate to="/" />;
-  //       } else {
-  //         console.log('Пользователь - обычный пользователь');
-  //         return <Navigate to="/" />;
-  //       }
-  //     } else {
-  //       console.error('Ошибка входа', response);
-  //     }
-  //   } catch (error) {
-  //     console.error('Ошибка соединения', error);
-  //   }
-  // };
-
-  // if (loginSuccess) {
-  //   return <Navigate to="/" />;
-  // }
+  if (loginSuccess) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div style={{ marginTop: '80px' }}>
@@ -130,7 +90,7 @@ const LoginPage = () => {
         <div className="llogin">
           <form onSubmit={handleLogin} className="lform">
             <label for="chk" aria-hidden="true">
-              Log in
+              Войти <br /> <span>Уже Зарегистрирован ?</span>
             </label>
             <input
               className="linput"

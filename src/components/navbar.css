@@ -22,9 +22,8 @@
     height: 70px;
     margin-right: 40px;
   }
-
   .nav_title{
-    width:600px;
+    width: 700px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -58,9 +57,9 @@
     cursor: pointer;
   }
 
-  .button:hover{
-    background-color: #0D7AE2;
-  }
+ .button_add{
+  color: white;
+ }
 
   .phone_num{
     display: flex;
@@ -83,6 +82,7 @@
   }
 
 
+ 
 
   @keyframes pulse1 {
     0% {
