@@ -2,27 +2,26 @@ import React from 'react';
 import './adminstyle.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { BASE_URL } from '../../utils/const';
-import { useEffect } from 'react';
-import { useProductContext } from '../../contexts/ProductContext';
 
 function AdmiPage() {
   const isPageAdmin = localStorage.getItem('superUser') === 'true';
 
-  const [type, setType] = useState('');
+  const [type, setType] = useState();
   const [address, setAddress] = useState('');
-  const [region, setRegion] = useState('');
+  const [region, setRegion] = useState();
   const [square, setSquare] = useState('');
   const [price, setPrice] = useState('');
   const [room_count, setRoomCount] = useState('');
-  const [series, setSeries] = useState('');
-  const [floor, setFloor] = useState('');
+  const [series, setSeries] = useState();
+  const [floor, setFloor] = useState();
   const [communications, setCommunications] = useState('');
   const [document, setDocument] = useState('');
   const [description, setDescription] = useState('');
-
-  // const refresh = localStorage.getItem('adminRefresh');
-  // const access = localStorage.getItem('adminAccess');
+  const [title, setTitle] = useState('');
+  const [best, setBest] = useState('');
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
+  const [name, setName] = useState();
 
   const handleSubmitAdmin = async (e) => {
     e.preventDefault();
@@ -31,68 +30,158 @@ function AdmiPage() {
       const response = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/token/refresh/',
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
-            'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
-          },
+          refresh: localStorage.getItem('adminRefresh'),
         }
       );
 
       if (response.status === 200) {
         const newAccessToken = response.data.access;
-        // Обновление значения access в localStorage или в другом месте, где вы храните токен access
-        localStorage.setItem('accessToken', newAccessToken);
+        localStorage.setItem('adminAccess', newAccessToken);
         console.log('Токен успешно обновлен');
       } else {
         console.error('Ошибка обновления токена');
       }
     } catch (error) {
-      console.error('Ошибка соединения', error);
+      console.error('Ошибка соедиенения', error);
     }
-
     try {
-      // Получение данных из localStorage
       const refreshData = {
         refresh: localStorage.getItem('adminRefresh'),
       };
 
-      // Отправка POST-запроса для обновления токена
       const refreshResponse = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/token/refresh/',
         refreshData
       );
 
-      // Проверка успешности выполнения запроса обновления токена
       if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
         console.log('yes');
       }
-      const data = {
-        type: type,
-        address: address,
-        region: region,
-        square: square,
-        price: price,
-        room_count: room_count,
-        series: series,
-        floor: floor,
-        communications: communications,
-        document: document,
-        description: description,
-      };
 
-      const response = await axios.post(
-        'https://vm4506017.43ssd.had.wf/api/apartment/',
-        data,
+      const regionData = {
+        title: region,
+      };
+      const regionResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/types/apartments/',
+        regionData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
-            'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
+      if (regionResponse.status >= 200 && regionResponse.status < 300) {
+        console.log('region Post-запрос отправлен успешно');
+      }
+
+      const typeData = {
+        title: type,
+      };
+      const typeResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/types/apartments/',
+        typeData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
+      if (typeResponse.status >= 200 && typeResponse.status < 300) {
+        console.log('type Post-запрос отправлен успешно');
+      }
+
+      const documentData = {
+        title: document,
+      };
+      const documentResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/document/apartment/',
+        documentData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
+      if (documentResponse.status >= 200 && documentResponse.status < 300) {
+        console.log('document Post-запрос отправлен успешно');
+      }
+
+      const seriesData = {
+        title: series,
+      };
+      const seriesResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/series/apartment/',
+        seriesData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
+      if (seriesResponse.status >= 200 && seriesResponse.status < 300) {
+        console.log('series Post-запрос выполнен успешно');
+      }
+
+      const currencyData = {
+        symbol: '$',
+        name: name,
+      };
+
+      const currencyResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/currency/',
+        currencyData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
           },
         }
       );
 
-      if (response.status >= 200 && response.status < 300) {
-        console.log('Второй POST-запрос выполнен успешно');
+      if (currencyResponse.status >= 200 && currencyResponse.status < 300) {
+        console.log('currency POST-запрос выполнен успешно');
+
+        const seriesId = seriesResponse.data.id;
+        const currencyId = currencyResponse.data.id;
+        const documentId = documentResponse.data.id;
+        const typeId = typeResponse.data.id;
+        const regionId = regionResponse.data.id;
+
+        const localIdAuthor = localStorage.getItem('id');
+        const data = {
+          type: typeId,
+          address: address,
+          region: regionId,
+          square: square,
+          price: price,
+          room_count: room_count,
+          floor: floor,
+          communications: communications,
+          document: documentId,
+          description: description,
+          title: title,
+          best: best,
+          lat: lat,
+          lng: lng,
+          author: localIdAuthor,
+          currency: currencyId,
+          series: seriesId,
+        };
+
+        await axios.post(
+          'https://vm4506017.43ssd.had.wf/api/apartment/',
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
+              'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
+            },
+          }
+        );
       } else {
         console.error('Ошибка добавления');
       }
@@ -100,6 +189,7 @@ function AdmiPage() {
       console.error('Ошибка соединения', error);
     }
   };
+
   return (
     <div>
       {isPageAdmin ? (
@@ -115,70 +205,117 @@ function AdmiPage() {
             </h1>
 
             <form onSubmit={handleSubmitAdmin} className="admin_form">
+              <span>Выберите тип недвижимости</span>
               <input
                 onChange={(e) => setType(e.target.value)}
                 value={type}
-                placeholder="Напишите тип жилья"
+                placeholder="integer"
               />
+              <span>Адрес недвижимости</span>
               <input
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
                 placeholder="Напишите адрес"
               />
+              <span>Регион недвижимости</span>
               <input
                 onChange={(e) => setRegion(e.target.value)}
                 value={region}
-                placeholder="Напишите в каком районе помещение"
+                placeholder="Region"
+                type="text"
               />
+              <span>Квадратура недвижимости</span>
               <input
                 onChange={(e) => setSquare(e.target.value)}
                 value={square}
                 placeholder="Напишите квадратуру"
               />
+              <span>Цену недвижимости</span>
               <input
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
                 placeholder="Напишите цену"
               />
+              <span>Количество комнат</span>
               <input
                 onChange={(e) => setRoomCount(e.target.value)}
                 value={room_count}
                 placeholder="Напишите количество комнат"
               />
+              <span>Состояние недвижимости</span>
               <input
                 onChange={(e) => setSeries(e.target.value)}
                 value={series}
-                placeholder="Напишите состояние помещения"
+                placeholder="integer"
+                type="number"
               />
               <span>Напишите на каком этаже помещение</span>
               <div className="floor_container">
                 <input
+                  type="number"
                   onChange={(e) => setFloor(e.target.value)}
                   value={floor}
                   className="inp_floor"
+                  placeholder="integer"
                 />
                 <span>из</span>
                 <input
+                  type="number"
                   onChange={(e) => setFloor(e.target.value)}
                   value={floor}
                   className="inp_floor"
+                  placeholder="integer"
                 />
               </div>
+              <span>Номер телефона для связи</span>
               <input
                 onChange={(e) => setCommunications(e.target.value)}
                 value={communications}
                 placeholder="Напишите телефон для связи"
               />
+              <span>Тип документа недвижимости</span>
               <input
                 onChange={(e) => setDocument(e.target.value)}
                 value={document}
-                placeholder="Напишите тип документа"
+                placeholder="document"
+                type="text"
               />
+              <span>Описание недвижимости</span>
               <textarea
                 onChange={(e) => setDescription(e.target.value)}
                 className="inp_description"
                 placeholder="Напишите описание"
                 type="text"
+                value={description}
+              />
+              <span>Заголовк недвижимости</span>
+              <input
+                value={title}
+                type="number"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <span>Выберите тип недвижимости</span>
+              <input
+                type="checkbox"
+                onChange={(e) => setBest(e.target.checked)}
+                checked={best}
+              />
+
+              <input
+                value={lat}
+                onChange={(e) => setLat(e.target.value)}
+                placeholder="string"
+              />
+              <input
+                value={lng}
+                onChange={(e) => setLng(e.target.value)}
+                placeholder="string"
+              />
+              <span>Напишите валюту продажи недвижимости</span>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="string"
               />
               <button>Добавить</button>
             </form>
