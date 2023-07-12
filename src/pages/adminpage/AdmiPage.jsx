@@ -13,12 +13,13 @@ function AdmiPage() {
   const [price, setPrice] = useState('');
   const [room_count, setRoomCount] = useState('');
   const [series, setSeries] = useState();
-  const [floor, setFloor] = useState();
+  const [floorone, setFloorOne] = useState();
+  const [floortwo, setFloorTwo] = useState();
   const [communications, setCommunications] = useState('');
   const [document, setDocument] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
-  const [best, setBest] = useState('');
+  const [best, setBest] = useState();
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [name, setName] = useState();
@@ -55,14 +56,32 @@ function AdmiPage() {
       );
 
       if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
-        console.log('yes');
+        console.log('yes update');
+      }
+
+      const floorData = {
+        title: `${floorone} из ${floortwo}`,
+      };
+
+      const floorResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/floor/apartment/',
+        floorData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
+      if (floorResponse.status >= 200 && floorResponse.status < 300) {
+        console.log('floor Post-запрос отправлен успешно');
       }
 
       const regionData = {
-        title: region,
+        name: region,
       };
       const regionResponse = await axios.post(
-        'https://vm4506017.43ssd.had.wf/api/types/apartments/',
+        'https://vm4506017.43ssd.had.wf/api/region/',
         regionData,
         {
           headers: {
@@ -150,6 +169,7 @@ function AdmiPage() {
         const documentId = documentResponse.data.id;
         const typeId = typeResponse.data.id;
         const regionId = regionResponse.data.id;
+        const floorId = floorResponse.data.id;
 
         const localIdAuthor = localStorage.getItem('id');
         const data = {
@@ -159,7 +179,7 @@ function AdmiPage() {
           square: square,
           price: price,
           room_count: room_count,
-          floor: floor,
+          floor: floorId,
           communications: communications,
           document: documentId,
           description: description,
@@ -209,32 +229,32 @@ function AdmiPage() {
               <input
                 onChange={(e) => setType(e.target.value)}
                 value={type}
-                placeholder="integer"
+                placeholder="Тип"
               />
               <span>Адрес недвижимости</span>
               <input
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
-                placeholder="Напишите адрес"
+                placeholder="Адрес"
               />
               <span>Регион недвижимости</span>
               <input
                 onChange={(e) => setRegion(e.target.value)}
                 value={region}
-                placeholder="Region"
+                placeholder="Регион"
                 type="text"
               />
               <span>Квадратура недвижимости</span>
               <input
                 onChange={(e) => setSquare(e.target.value)}
                 value={square}
-                placeholder="Напишите квадратуру"
+                placeholder="Напишите квадратуру м2"
               />
               <span>Цену недвижимости</span>
               <input
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
-                placeholder="Напишите цену"
+                placeholder="Цена"
               />
               <span>Количество комнат</span>
               <input
@@ -246,25 +266,23 @@ function AdmiPage() {
               <input
                 onChange={(e) => setSeries(e.target.value)}
                 value={series}
-                placeholder="integer"
-                type="number"
+                placeholder="Состояние"
+                type="text"
               />
               <span>Напишите на каком этаже помещение</span>
               <div className="floor_container">
                 <input
                   type="number"
-                  onChange={(e) => setFloor(e.target.value)}
-                  value={floor}
+                  onChange={(e) => setFloorOne(e.target.value)}
+                  value={floorone}
                   className="inp_floor"
-                  placeholder="integer"
                 />
                 <span>из</span>
                 <input
                   type="number"
-                  onChange={(e) => setFloor(e.target.value)}
-                  value={floor}
+                  onChange={(e) => setFloorTwo(e.target.value)}
+                  value={floortwo}
                   className="inp_floor"
-                  placeholder="integer"
                 />
               </div>
               <span>Номер телефона для связи</span>
@@ -277,7 +295,7 @@ function AdmiPage() {
               <input
                 onChange={(e) => setDocument(e.target.value)}
                 value={document}
-                placeholder="document"
+                placeholder="Тип документа"
                 type="text"
               />
               <span>Описание недвижимости</span>
@@ -291,8 +309,9 @@ function AdmiPage() {
               <span>Заголовк недвижимости</span>
               <input
                 value={title}
-                type="number"
+                type="text"
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder='Заголовок'
               />
               <span>Выберите тип недвижимости</span>
               <input
