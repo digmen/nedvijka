@@ -1,7 +1,7 @@
-import React from 'react';
-import './adminstyle.css';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+import './adminstyle.css';
 
 function AdmiPage() {
   const isPageAdmin = localStorage.getItem('superUser') === 'true';
@@ -22,42 +22,63 @@ function AdmiPage() {
   const [best, setBest] = useState();
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
-  const [name, setName] = useState();
+  const [name, setName] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
 
-  const handleSubmitAdmin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        'https://vm4506017.43ssd.had.wf/api/token/refresh/',
-        {
-          refresh: localStorage.getItem('adminRefresh'),
-        }
-      );
-
-      if (response.status === 200) {
-        const newAccessToken = response.data.access;
-        localStorage.setItem('adminAccess', newAccessToken);
-        console.log('Токен успешно обновлен');
-      } else {
-        console.error('Ошибка обновления токена');
-      }
-    } catch (error) {
-      console.error('Ошибка соедиенения', error);
-    }
+  const refreshAccessToken = async () => {
     try {
       const refreshData = {
         refresh: localStorage.getItem('adminRefresh'),
       };
-
       const refreshResponse = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/token/refresh/',
         refreshData
       );
-
       if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
-        console.log('yes update');
+      } else {
+        throw new Error('Ошибка обновления токена');
       }
+    } catch (error) {
+      alert('Ошибка соединения');
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    const urls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const url = URL.createObjectURL(files[i]);
+      urls.push(url);
+    }
+
+    setSelectedFiles([...files]);
+    setPreviewUrls(urls);
+  };
+
+  const handleSubmitAdmin = async (e) => {
+    e.preventDefault();
+
+    await refreshAccessToken();
+
+    try {
+      const formData = new FormData();
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('photos', selectedFiles[i]);
+      }
+
+      axios.post(
+        'https://vm4506017.43ssd.had.wf/api/image/apartments/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+          },
+        }
+      );
 
       const floorData = {
         title: `${floorone} из ${floortwo}`,
@@ -73,9 +94,6 @@ function AdmiPage() {
           },
         }
       );
-      if (floorResponse.status >= 200 && floorResponse.status < 300) {
-        console.log('floor Post-запрос отправлен успешно');
-      }
 
       const regionData = {
         name: region,
@@ -91,7 +109,9 @@ function AdmiPage() {
         }
       );
       if (regionResponse.status >= 200 && regionResponse.status < 300) {
-        console.log('region Post-запрос отправлен успешно');
+        console.log('успешно');
+      } else {
+        console.log('не заполнен регион');
       }
 
       const typeData = {
@@ -107,9 +127,6 @@ function AdmiPage() {
           },
         }
       );
-      if (typeResponse.status >= 200 && typeResponse.status < 300) {
-        console.log('type Post-запрос отправлен успешно');
-      }
 
       const documentData = {
         title: document,
@@ -124,9 +141,6 @@ function AdmiPage() {
           },
         }
       );
-      if (documentResponse.status >= 200 && documentResponse.status < 300) {
-        console.log('document Post-запрос отправлен успешно');
-      }
 
       const seriesData = {
         title: series,
@@ -141,9 +155,6 @@ function AdmiPage() {
           },
         }
       );
-      if (seriesResponse.status >= 200 && seriesResponse.status < 300) {
-        console.log('series Post-запрос выполнен успешно');
-      }
 
       const currencyData = {
         symbol: '$',
@@ -162,8 +173,6 @@ function AdmiPage() {
       );
 
       if (currencyResponse.status >= 200 && currencyResponse.status < 300) {
-        console.log('currency POST-запрос выполнен успешно');
-
         const seriesId = seriesResponse.data.id;
         const currencyId = currencyResponse.data.id;
         const documentId = documentResponse.data.id;
@@ -197,16 +206,18 @@ function AdmiPage() {
           data,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem('adminAccess')}`, // Предоставление access в заголовке Authorization
-              'X-Refresh-Token': localStorage.getItem('adminRefresh'), // Предоставление refresh в заголовке X-Refresh-Token
+              Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+              'X-Refresh-Token': localStorage.getItem('adminRefresh'),
             },
           }
         );
+
+        alert('Данные успешно добавлены!');
       } else {
-        console.error('Ошибка добавления');
+        alert('Ошибка добавления');
       }
     } catch (error) {
-      console.error('Ошибка соединения', error);
+      alert('Ошибка соединения');
     }
   };
 
@@ -311,7 +322,7 @@ function AdmiPage() {
                 value={title}
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder='Заголовок'
+                placeholder="Заголовок"
               />
               <span>Выберите тип недвижимости</span>
               <input
@@ -323,19 +334,39 @@ function AdmiPage() {
               <input
                 value={lat}
                 onChange={(e) => setLat(e.target.value)}
-                placeholder="string"
+                placeholder="let"
               />
               <input
                 value={lng}
                 onChange={(e) => setLng(e.target.value)}
-                placeholder="string"
+                placeholder="lng"
               />
               <span>Напишите валюту продажи недвижимости</span>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="string"
+                placeholder="Цена"
               />
+              <input
+                style={{ border: 'none' }}
+                type="file"
+                multiple
+                onChange={handleFileChange}
+              />
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {previewUrls.map((url, index) => (
+                  <img
+                    key={index}
+                    src={url}
+                    alt={`Preview ${index}`}
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                ))}
+              </div>
               <button>Добавить</button>
             </form>
           </div>
