@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import aboutstyle from './about.module.css';
 import { Box, Button, Image, SimpleGrid } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import bg1 from './bg1.svg';
+import bg1 from './bg1.png';
 import photo1 from './photo.svg';
 import { useProductContext } from '../../contexts/ProductContext';
 

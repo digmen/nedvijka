@@ -10,13 +10,66 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
+import axios from 'axios';
+import { useState } from 'react';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 function Bestbroduct() {
   const { bestproducts, getBestProducts } = useProductContext();
 
+  // Получаем список избранных продуктов из localStorage при загрузке страницы
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return savedFavorites;
+  });
+
   useEffect(() => {
-    getBestProducts();
+    bestproducts();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = async (productId) => {
+    try {
+      const userId = localStorage.getItem('id');
+
+      if (!userId) {
+        console.error('Отсутствует ID пользователя в localStorage.');
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+        'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+      };
+
+      if (favorites.includes(productId)) {
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((id) => id !== productId)
+        );
+
+        await axios.delete(
+          `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
+          {
+            headers,
+            data: { user: userId },
+          }
+        );
+      } else {
+        setFavorites((prevFavorites) => [...prevFavorites, productId]);
+
+        await axios.post(
+          'https://vm4506017.43ssd.had.wf/api/favorite/',
+          { user: userId, apartment: productId },
+          {
+            headers,
+          }
+        );
+      }
+    } catch (error) {}
+  };
   return (
     <div className={mainstyle.bestproduct}>
       <span className={mainstyle.best_span}>
@@ -110,7 +163,19 @@ function Bestbroduct() {
                       justifyContent={'space-between'}
                     >
                       {apartment.price} $
-                      <FcLike fontSize={'30px'} />
+                      {favorites.includes(apartment.id) ? (
+                        <AiFillHeart
+                          color="red"
+                          fontSize={'35px'}
+                          onClick={() => toggleFavorite(apartment.id)}
+                        />
+                      ) : (
+                        <AiOutlineHeart
+                          color="red"
+                          fontSize={'35px'}
+                          onClick={() => toggleFavorite(apartment.id)}
+                        />
+                      )}
                     </Box>
                   </Box>
                 </Box>

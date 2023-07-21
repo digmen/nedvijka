@@ -21,14 +21,14 @@
 .main span {
     font-size: 57px;
     position: absolute;
-    top: 310px;
-    color: white;
+    top: 370px;
+    color: rgb(255, 255, 255);
 }
 .main p{
     position: absolute;
     font-size: 24px;
-    top: 400px;
-    color: white;
+    top: 450px;
+    color: rgb(255, 255, 255);
 }
 
 .reviews{
