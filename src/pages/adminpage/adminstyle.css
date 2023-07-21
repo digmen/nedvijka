@@ -63,3 +63,17 @@
     display: flex;
     justify-content: flex-start;
 }
+
+.container_admin_add{
+    margin-top: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.lbl_add_admin{
+    display: flex;
+    justify-content:space-between;
+    color: black;
+    font-size: 18px;
+    max-width: 400px;
+}

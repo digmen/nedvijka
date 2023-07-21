@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import './adminstyle.css';
@@ -206,6 +206,45 @@ function AdmiPage() {
       console.log('Ошибка', error);
     }
   };
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsersData();
+  }, []);
+
+  async function getUsersData() {
+    const url = 'https://vm4506017.43ssd.had.wf/api/users/';
+
+    try {
+      const response = await axios.get(url);
+      const usersArray = response.data.results; // Получаем массив пользователей из свойства "results"
+      setUsers(usersArray);
+    } catch (error) {
+      console.error('Ошибка при запросе:', error);
+    }
+  }
+
+  async function handleCheckboxChange(id, checked) {
+    try {
+      const userToUpdate = users.find((user) => user.id === id);
+
+      if (!userToUpdate) return;
+
+      const updatedUser = {
+        ...userToUpdate,
+        is_superuser: checked,
+        is_staff: checked,
+      };
+      setUsers((prevUsers) => {
+        return prevUsers.map((user) => (user.id === id ? updatedUser : user));
+      });
+
+      const url = `https://vm4506017.43ssd.had.wf/api/users/${id}/`;
+      await axios.patch(url, updatedUser);
+    } catch (error) {
+      console.error('Ошибка при изменении состояния:', error.message);
+    }
+  }
 
   return (
     <div>
@@ -223,11 +262,16 @@ function AdmiPage() {
 
             <form onSubmit={handleSubmitAdmin} className="admin_form">
               <span>Выберите тип недвижимости</span>
-              <input
+              <select
+                style={{ maxWidth: '500px', minHeight: '40px' }}
                 onChange={(e) => setType(e.target.value)}
                 value={type}
-                placeholder="Тип"
-              />
+              >
+                <option value="дом">Дом</option>
+                <option value="участок">Участок</option>
+                <option value="коммерция">Коммерция</option>
+                <option value="квартира">Квартира</option>
+              </select>
               <span>Адрес недвижимости</span>
               <input
                 onChange={(e) => setAddress(e.target.value)}
@@ -339,6 +383,26 @@ function AdmiPage() {
               </div>
               <button>Добавить</button>
             </form>
+          </div>
+          <div className="container_admin_add">
+            <h2>Список пользователей</h2>
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>
+                  <label className="lbl_add_admin">
+                    {user.login}
+                    <input
+                      className="inp_add_admin"
+                      type="checkbox"
+                      checked={user.is_superuser && user.is_staff}
+                      onChange={(e) =>
+                        handleCheckboxChange(user.id, e.target.checked)
+                      }
+                    />
+                  </label>
+                </li>
+              ))}
+            </ul>
           </div>
         </>
       ) : (
