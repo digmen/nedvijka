@@ -63,7 +63,19 @@ function MainPage() {
         'X-Refresh-Token': localStorage.getItem('adminRefresh'),
       };
 
-      if (favorites.includes(productId)) {
+      if (!favorites.includes(productId)) {
+        // Если продукта нет в избранном, добавляем его в список
+        setFavorites((prevFavorites) => [...prevFavorites, productId]);
+
+        // Отправляем POST-запрос на сервер для добавления в избранное
+        await axios.post(
+          'https://vm4506017.43ssd.had.wf/api/favorite/',
+          { user: userId, apartment: productId },
+          {
+            headers,
+          }
+        );
+      } else {
         // Если продукт уже в избранном, удаляем его из списка
         setFavorites((prevFavorites) =>
           prevFavorites.filter((id) => id !== productId)
@@ -75,18 +87,6 @@ function MainPage() {
           {
             headers,
             data: { user: userId }, // Передаем ID пользователя в теле запроса
-          }
-        );
-      } else {
-        // Если продукта нет в избранном, добавляем его в список
-        setFavorites((prevFavorites) => [...prevFavorites, productId]);
-
-        // Отправляем POST-запрос на сервер для добавления в избранное
-        await axios.post(
-          'https://vm4506017.43ssd.had.wf/api/favorite/',
-          { user: userId, apartment: productId },
-          {
-            headers,
           }
         );
       }
