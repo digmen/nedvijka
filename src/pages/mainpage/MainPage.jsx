@@ -1,6 +1,8 @@
 import React from 'react';
 import mainstyle from './mainpage.module.css';
 import {
+  Badge,
+  Box,
   Image,
   Tab,
   TabList,
@@ -15,10 +17,74 @@ import q from './imghome/q.svg';
 import w from './imghome/w.svg';
 import e from './imghome/e.svg';
 import r from './imghome/r.svg';
-import bg1 from './imghome/bg1.jpg';
-import ProductCard from '../../components/PrdouctCard';
+import bg1 from './imghome/bg1.png';
+import logo from './imghome/logo.svg';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { TiLocation } from 'react-icons/ti';
+import { BiShapeSquare } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
+import { useProductContext } from '../../contexts/ProductContext';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 function MainPage() {
+  const { products, getProducts } = useProductContext();
+
+  // Получаем список избранных продуктов из localStorage при загрузке страницы
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return savedFavorites;
+  });
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = async (productId) => {
+    try {
+      const userId = localStorage.getItem('id');
+
+      if (!userId) {
+        console.error('Отсутствует ID пользователя в localStorage.');
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+        'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+      };
+
+      if (favorites.includes(productId)) {
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((id) => id !== productId)
+        );
+
+        await axios.delete(
+          `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
+          {
+            headers,
+            data: { user: userId },
+          }
+        );
+      } else {
+        setFavorites((prevFavorites) => [...prevFavorites, productId]);
+
+        await axios.post(
+          'https://vm4506017.43ssd.had.wf/api/favorite/',
+          { user: userId, apartment: productId },
+          {
+            headers,
+          }
+        );
+      }
+    } catch (error) {}
+  };
+
   return (
     <>
       <div>
@@ -30,21 +96,21 @@ function MainPage() {
               style={{ width: '100%', maxHeight: '50%' }}
             />
             <div className={mainstyle.container}>
-              <span>
-                Напишите нам прямо сейчас - и мы сэкономим ваше время, нервы и
-                деньги.
-              </span>
+              <div className={mainstyle.main_logo}>
+                <img src={logo} />
+                <span>АГЕНТСТВО НЕДВИЖИМОСТИ №1</span>
+              </div>
               <Tabs
                 bg={'white'}
-                borderRadius={5}
+                borderRadius={70}
                 isFitted
                 variant="enclosed"
                 p={[150, 70]}
                 backgroundRepeat={'no-repeat'}
                 backgroundSize={'100%'}
                 position={'absolute'}
-                top={350}
-                right={30}
+                top={700}
+                right={10}
               >
                 <TabList mb="1em">
                   <Tab>Купить</Tab>
@@ -63,8 +129,6 @@ function MainPage() {
           </div>
           <div className={mainstyle.main}>
             <Bestbroduct />
-          </div>
-          <div className={mainstyle.main}>
             <div>
               <div className={mainstyle.description}>
                 <div style={{ width: '1000px', textAlign: 'center' }}>
@@ -84,7 +148,108 @@ function MainPage() {
                 <img style={{ width: '300px' }} alt="error img" src={r}></img>
               </div>
             </div>
-            <ProductCard />
+            <div className={mainstyle.product_card}>
+              <h1>Наши объекты</h1>
+              <div className={mainstyle.p_card}>
+                {products.map((item) => (
+                  <Box key={item.id} className={mainstyle.card}>
+                    <Box
+                      maxW="sm"
+                      borderWidth="1px"
+                      borderRadius="lg"
+                      overflow="hidden"
+                      style={{
+                        width: '300px',
+                        height: '400px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      {item.apartment_images.length > 0 ? (
+                        <Link
+                          to={`/details/${item.id}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          <img
+                            height="100%"
+                            width="100%"
+                            src={item.apartment_images[0].image}
+                            alt="error"
+                          />
+                        </Link>
+                      ) : (
+                        <p>Нет изображения</p>
+                      )}
+                      <Box p="6">
+                        <Box display="flex" alignItems="baseline">
+                          <Badge
+                            borderRadius="full"
+                            px="2"
+                            colorScheme="teal"
+                            fontSize="sm"
+                          >
+                            {item.type.title}
+                          </Badge>
+                        </Box>
+                        <Box
+                          mt="1"
+                          fontWeight="semibold"
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                          maxW="270px"
+                        >
+                          {item.status}
+                        </Box>
+                        <Box
+                          color="gray.500"
+                          fontWeight="semibold"
+                          letterSpacing="wide"
+                          fontSize="xs"
+                          textTransform="uppercase"
+                          ml="2"
+                        >
+                          <Box pb={1} display={'flex'} gap={'5px'}>
+                            <TiLocation fontSize={'20px'} /> {item.region.name}
+                            <br></br>
+                            {item.address}
+                          </Box>
+                          <Box display={'flex'} gap={'5px'}>
+                            <BiShapeSquare fontSize={'20px'} /> {item.square}
+                          </Box>
+                        </Box>
+                        <Box
+                          fontSize="2xl"
+                          fontWeight={600}
+                          display={'flex'}
+                          justifyContent={'space-between'}
+                        >
+                          {item.price} $
+                          {favorites.includes(item.id) ? (
+                            <AiFillHeart
+                              color="red"
+                              fontSize={'35px'}
+                              onClick={() => toggleFavorite(item.id)}
+                            />
+                          ) : (
+                            <AiOutlineHeart
+                              color="red"
+                              fontSize={'35px'}
+                              onClick={() => toggleFavorite(item.id)}
+                            />
+                          )}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

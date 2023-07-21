@@ -25,8 +25,7 @@ function reducer(state, action) {
       return { ...state, bestproducts: action.payload };
     case ACTIONS.review:
       return { ...state, review: action.payload };
-    case ACTIONS.f:
-      return { ...state, f: action.payload };
+
     default:
       return state;
   }
@@ -34,18 +33,6 @@ function reducer(state, action) {
 
 function ProductContext({ children }) {
   const [state, dispatch] = useReducer(reducer, initState);
-
-  async function getOneProduct(id) {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/apartment/${id}`);
-      dispatch({
-        type: ACTIONS.oneProduct,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   async function getBestProducts() {
     try {
@@ -87,14 +74,12 @@ function ProductContext({ children }) {
     }
   }
 
-  async function getF() {
+  async function getOneProduct(id) {
     try {
-      const { data } = await axios.get(
-        `https://vm4506017.43ssd.had.wf/api/favorite/`
-      );
+      const { data } = await axios.get(`${BASE_URL}/apartment/${id}`);
       dispatch({
-        type: ACTIONS.f,
-        payload: data.results,
+        type: ACTIONS.oneProduct,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -110,8 +95,6 @@ function ProductContext({ children }) {
     review: state.review,
     getBestProducts,
     bestproducts: state.bestproducts,
-    getF,
-    f: state.f,
   };
 
   return (

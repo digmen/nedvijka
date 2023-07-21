@@ -80,9 +80,6 @@ function Navbar() {
     <div>
       <nav className="nav">
         <div className="nav_title">
-          <Link to="/" className="nav_logo">
-            <img src={logo} />
-          </Link>
           <Link to="/">
             <span className="nav_text">Домой</span>
           </Link>
@@ -155,7 +152,7 @@ function Navbar() {
                 <MenuList>
                   <MenuGroup>
                     <Link to="/login">
-                      <MenuItem>Регистрация</MenuItem>
+                      <MenuItem>Регистрация / Войти</MenuItem>
                     </Link>
                   </MenuGroup>
                 </MenuList>

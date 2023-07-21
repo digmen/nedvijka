@@ -3,11 +3,14 @@
     margin: 0 auto;
 }
 
-.add{
+.f_card{
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 150px 0;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.add{
+   margin: 0 auto;
 }
 
 .add span{

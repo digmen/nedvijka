@@ -14,7 +14,7 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 .admin_form button{
     background-color: #2D56A5;
@@ -23,6 +23,11 @@
     border-radius: 5px;
     width: 500px;
     height: 40px;
+}
+
+
+.best_admin_inp{
+    width: 100px !important;
 }
 
 .admin_form input{

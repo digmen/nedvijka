@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import './adminstyle.css';
@@ -8,7 +8,6 @@ function AdmiPage() {
 
   const [type, setType] = useState();
   const [address, setAddress] = useState('');
-  const [region, setRegion] = useState();
   const [square, setSquare] = useState('');
   const [price, setPrice] = useState('');
   const [room_count, setRoomCount] = useState('');
@@ -19,10 +18,7 @@ function AdmiPage() {
   const [document, setDocument] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
-  const [best, setBest] = useState();
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
-  const [name, setName] = useState('');
+  const [best, setBest] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
 
@@ -63,27 +59,9 @@ function AdmiPage() {
     await refreshAccessToken();
 
     try {
-      const formData = new FormData();
-
-      for (let i = 0; i < selectedFiles.length; i++) {
-        formData.append('photos', selectedFiles[i]);
-      }
-
-      axios.post(
-        'https://vm4506017.43ssd.had.wf/api/image/apartments/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
-          },
-        }
-      );
-
       const floorData = {
         title: `${floorone} из ${floortwo}`,
       };
-
       const floorResponse = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/floor/apartment/',
         floorData,
@@ -94,7 +72,7 @@ function AdmiPage() {
           },
         }
       );
-
+      const region = '0';
       const regionData = {
         name: region,
       };
@@ -108,12 +86,6 @@ function AdmiPage() {
           },
         }
       );
-      if (regionResponse.status >= 200 && regionResponse.status < 300) {
-        console.log('успешно');
-      } else {
-        console.log('не заполнен регион');
-      }
-
       const typeData = {
         title: type,
       };
@@ -127,7 +99,6 @@ function AdmiPage() {
           },
         }
       );
-
       const documentData = {
         title: document,
       };
@@ -141,7 +112,6 @@ function AdmiPage() {
           },
         }
       );
-
       const seriesData = {
         title: series,
       };
@@ -155,12 +125,11 @@ function AdmiPage() {
           },
         }
       );
-
+      const name = 0;
       const currencyData = {
         symbol: '$',
         name: name,
       };
-
       const currencyResponse = await axios.post(
         'https://vm4506017.43ssd.had.wf/api/currency/',
         currencyData,
@@ -172,52 +141,69 @@ function AdmiPage() {
         }
       );
 
-      if (currencyResponse.status >= 200 && currencyResponse.status < 300) {
-        const seriesId = seriesResponse.data.id;
-        const currencyId = currencyResponse.data.id;
-        const documentId = documentResponse.data.id;
-        const typeId = typeResponse.data.id;
-        const regionId = regionResponse.data.id;
-        const floorId = floorResponse.data.id;
+      const seriesId = seriesResponse.data.id;
+      const currencyId = currencyResponse.data.id;
+      const documentId = documentResponse.data.id;
+      const typeId = typeResponse.data.id;
+      const regionId = regionResponse.data.id;
+      const floorId = floorResponse.data.id;
+      const localIdAuthor = localStorage.getItem('id');
 
-        const localIdAuthor = localStorage.getItem('id');
-        const data = {
-          type: typeId,
-          address: address,
-          region: regionId,
-          square: square,
-          price: price,
-          room_count: room_count,
-          floor: floorId,
-          communications: communications,
-          document: documentId,
-          description: description,
-          title: title,
-          best: best,
-          lat: lat,
-          lng: lng,
-          author: localIdAuthor,
-          currency: currencyId,
-          series: seriesId,
-        };
+      const data = {
+        type: typeId,
+        address: address,
+        region: regionId,
+        square: square,
+        price: price,
+        room_count: room_count,
+        floor: floorId,
+        communications: communications,
+        document: documentId,
+        description: description,
+        title: title,
+        best: best,
+        lat: '0',
+        lng: '0',
+        author: localIdAuthor,
+        currency: currencyId,
+        series: seriesId,
+      };
 
-        await axios.post(
-          'https://vm4506017.43ssd.had.wf/api/apartment/',
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
-              'X-Refresh-Token': localStorage.getItem('adminRefresh'),
-            },
-          }
-        );
+      const apartmentResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/apartment/',
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+            'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+          },
+        }
+      );
 
-        alert('Данные успешно добавлены!');
+      const apartmentId = apartmentResponse.data.id;
+
+      if (selectedFiles.length > 0) {
+        for (let i = 0; i < selectedFiles.length; i++) {
+          const formData = new FormData();
+          formData.append('apartment', apartmentId);
+          formData.append('image', selectedFiles[i]);
+
+          await axios.post(
+            'https://vm4506017.43ssd.had.wf/api/image/apartments/',
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+              },
+            }
+          );
+        }
       } else {
-        alert('Ошибка добавления');
+        console.log('Нет выбранных файлов для отправки.');
       }
     } catch (error) {
-      alert('Ошибка соединения');
+      console.log('Ошибка', error);
     }
   };
 
@@ -248,30 +234,26 @@ function AdmiPage() {
                 value={address}
                 placeholder="Адрес"
               />
-              <span>Регион недвижимости</span>
-              <input
-                onChange={(e) => setRegion(e.target.value)}
-                value={region}
-                placeholder="Регион"
-                type="text"
-              />
               <span>Квадратура недвижимости</span>
               <input
                 onChange={(e) => setSquare(e.target.value)}
                 value={square}
                 placeholder="Напишите квадратуру м2"
+                type="number"
               />
               <span>Цену недвижимости</span>
               <input
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
                 placeholder="Цена"
+                type="number"
               />
               <span>Количество комнат</span>
               <input
                 onChange={(e) => setRoomCount(e.target.value)}
                 value={room_count}
                 placeholder="Напишите количество комнат"
+                type="number"
               />
               <span>Состояние недвижимости</span>
               <input
@@ -301,6 +283,7 @@ function AdmiPage() {
                 onChange={(e) => setCommunications(e.target.value)}
                 value={communications}
                 placeholder="Напишите телефон для связи"
+                type="number"
               />
               <span>Тип документа недвижимости</span>
               <input
@@ -324,29 +307,16 @@ function AdmiPage() {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Заголовок"
               />
-              <span>Выберите тип недвижимости</span>
-              <input
-                type="checkbox"
-                onChange={(e) => setBest(e.target.checked)}
-                checked={best}
-              />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <span>Добавить продукт в рекомендованые</span>
+                <input
+                  type="checkbox"
+                  onChange={(e) => setBest(e.target.checked)}
+                  checked={best}
+                  className="best_admin_inp"
+                />
+              </div>
 
-              <input
-                value={lat}
-                onChange={(e) => setLat(e.target.value)}
-                placeholder="let"
-              />
-              <input
-                value={lng}
-                onChange={(e) => setLng(e.target.value)}
-                placeholder="lng"
-              />
-              <span>Напишите валюту продажи недвижимости</span>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Цена"
-              />
               <input
                 style={{ border: 'none' }}
                 type="file"

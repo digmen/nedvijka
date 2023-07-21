@@ -19,7 +19,11 @@ function Bestbroduct() {
   }, []);
   return (
     <div className={mainstyle.bestproduct}>
-      <h1 style={{ marginTop: '100px' }}>Лучшие предложения для вас</h1>
+      <span className={mainstyle.best_span}>
+        Напишите нам прямо сейчас - и мы сэкономим <br /> ваше время, нервы и
+        деньги.
+      </span>
+      <h1>Лучшие предложения для вас</h1>
       <div className={mainstyle.card}>
         <Swiper
           slidesPerView={4}
@@ -65,7 +69,7 @@ function Bestbroduct() {
                     <Box display="flex" alignapartmentss="baseline">
                       <Badge
                         borderRadius="full"
-                        px="2"
+                        px="3"
                         colorScheme="teal"
                         fontSize="sm"
                       >

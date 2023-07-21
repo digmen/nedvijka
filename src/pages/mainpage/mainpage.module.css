@@ -7,34 +7,67 @@
   font-weight: 500;
 }
 
-
 .container{
   margin: 0 auto;
   max-width: 1400px;
 }
-
-.container span{
-  position: absolute;
-  left: 50%;
-  top: 6%;
-  transform: translate(-50%, -50%);
-  font-size: 38px;
-  text-align: center;
-  width: 1000px;
-}
-
 
 .main {
   margin: 0 auto;
   max-width: 1300px;
 }
 
+.main_logo{
+  position: absolute;
+  left: 50%;
+  top: 9%;
+  transform: translate(-50%, -50%);
+  font-size: 38px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1000px; 
+}
+.main_logo img{
+  width: 283px;
+  height: 281px;
+  margin-bottom: 60px;
+}
+
+.main_logo span{
+  color: #103C64;
+text-align: center;
+font-family: Inter;
+font-size: 50px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.bestproduct{
+  margin-top: 350px;
+}
+
+.best_span{
+  display: flex;
+  justify-content: center;
+  color: #103C64;
+  text-align: center;
+  font-family: Inter;
+  font-size: 30px ;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .bestproduct h1 {
   font-size: 48px;
   font-weight: 600;
   margin-bottom: 50px;
- display: flex;
- justify-content: center;
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 .card {

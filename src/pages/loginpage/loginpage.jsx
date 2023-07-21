@@ -90,7 +90,7 @@ const LoginPage = () => {
         <div className="llogin">
           <form onSubmit={handleLogin} className="lform">
             <label for="chk" aria-hidden="true">
-              Войти <br /> <span>Уже Зарегистрирован ?</span>
+              Войти <br /> <span>Еще не зарегистрирован ?</span>
             </label>
             <input
               className="linput"

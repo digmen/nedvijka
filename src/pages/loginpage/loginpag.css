@@ -16,7 +16,7 @@
   .lform {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 15px;
     padding: 24px;
     padding-bottom: 140px;
   }
