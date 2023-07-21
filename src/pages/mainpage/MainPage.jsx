@@ -50,10 +50,11 @@ function MainPage() {
   const toggleFavorite = async (productId) => {
     try {
       // Получаем ID продукта из localStorage
-      const userId = localStorage.getItem('id');
+      const userIdString = localStorage.getItem('id');
+      const userId = +userIdString;
 
+      console.log(userId);
       if (!userId) {
-        // Если нет ID пользователя, запрос не выполняется
         console.error('Отсутствует ID пользователя в localStorage.');
         return;
       }
@@ -68,13 +69,17 @@ function MainPage() {
         setFavorites((prevFavorites) => [...prevFavorites, productId]);
 
         // Отправляем POST-запрос на сервер для добавления в избранное
-        await axios.post(
+        const test = await axios.post(
           'https://vm4506017.43ssd.had.wf/api/favorite/',
           { user: userId, apartment: productId },
           {
             headers,
           }
         );
+
+        if ((test.status = 200)) {
+          console.log('кайф');
+        }
       } else {
         // Если продукт уже в избранном, удаляем его из списка
         setFavorites((prevFavorites) =>
@@ -82,15 +87,23 @@ function MainPage() {
         );
 
         // Отправляем DELETE-запрос на сервер для удаления из избранного
-        await axios.delete(
+        const test2 = await axios.delete(
           `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
           {
             headers,
             data: { user: userId }, // Передаем ID пользователя в теле запроса
           }
         );
+        if ((test2.status = 200)) {
+          console.log('кайф 2');
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(
+        'Произошла ошибка при обновлении списка избранных продуктов:',
+        error
+      );
+    }
   };
 
   return (
