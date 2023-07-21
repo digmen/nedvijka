@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useProductContext } from '../contexts/ProductContext';
 import mainstyle from '../pages/mainpage/mainpage.module.css';
-import { FcLike } from 'react-icons/fc';
 import { TiLocation } from 'react-icons/ti';
 import { BiShapeSquare } from 'react-icons/bi';
 import { Badge, Box } from '@chakra-ui/react';
@@ -24,7 +23,7 @@ function Bestbroduct() {
   });
 
   useEffect(() => {
-    bestproducts();
+    getBestProducts();
   }, []);
 
   useEffect(() => {
