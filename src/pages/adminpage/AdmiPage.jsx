@@ -200,7 +200,10 @@ function AdmiPage() {
           );
         }
       } else {
-        console.log('Нет выбранных файлов для отправки.');
+        alert('Добавьте фото');
+      }
+      if ((apartmentResponse.status = 200)) {
+        alert('Успешно добавлено');
       }
     } catch (error) {
       console.log('Ошибка', error);
@@ -267,6 +270,7 @@ function AdmiPage() {
                 onChange={(e) => setType(e.target.value)}
                 value={type}
               >
+                <option>Выберите тип</option>
                 <option value="дом">Дом</option>
                 <option value="участок">Участок</option>
                 <option value="коммерция">Коммерция</option>

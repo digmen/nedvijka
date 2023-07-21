@@ -155,6 +155,7 @@ function Bestbroduct() {
                         <BiShapeSquare fontSize={'20px'} /> {apartment.square}
                       </Box>
                     </Box>
+                    <Box>{apartment.description.slice(0, 22)}...</Box>
                     <Box
                       fontSize="2xl"
                       fontWeight={600}

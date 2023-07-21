@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductContext } from '../../contexts/ProductContext';
 import deteilstyle from './deteil.module.css';
@@ -8,15 +8,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Avatar, Badge, Box, Flex, Text } from '@chakra-ui/react';
 import { BiShapeSquare } from 'react-icons/bi';
 import { TiLocation } from 'react-icons/ti';
-import { FcLike } from 'react-icons/fc';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import axios from 'axios';
 
 function DetailPage() {
   const { id } = useParams();
   const { oneProduct, getOneProduct } = useProductContext();
-
-  useEffect(() => {
-    getOneProduct(id);
-  }, []);
 
   const settings = {
     dots: true,
@@ -24,6 +21,68 @@ function DetailPage() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+  };
+
+  // Получаем список избранных продуктов из localStorage при загрузке страницы
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return savedFavorites;
+  });
+
+  useEffect(() => {
+    getOneProduct(id);
+  }, []);
+
+  useEffect(() => {
+    // При изменении списка избранных продуктов сохраняем его в localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Функция для обновления состояния избранных продуктов при нажатии кнопки "Избранное"
+  const toggleFavorite = async (productId) => {
+    try {
+      // Получаем ID продукта из localStorage
+      const userId = localStorage.getItem('id');
+
+      if (!userId) {
+        // Если нет ID пользователя, запрос не выполняется
+        console.error('Отсутствует ID пользователя в localStorage.');
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('adminAccess')}`,
+        'X-Refresh-Token': localStorage.getItem('adminRefresh'),
+      };
+
+      if (favorites.includes(productId)) {
+        // Если продукт уже в избранном, удаляем его из списка
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((id) => id !== productId)
+        );
+
+        // Отправляем DELETE-запрос на сервер для удаления из избранного
+        await axios.delete(
+          `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
+          {
+            headers,
+            data: { user: userId }, // Передаем ID пользователя в теле запроса
+          }
+        );
+      } else {
+        // Если продукта нет в избранном, добавляем его в список
+        setFavorites((prevFavorites) => [...prevFavorites, productId]);
+
+        // Отправляем POST-запрос на сервер для добавления в избранное
+        await axios.post(
+          'https://vm4506017.43ssd.had.wf/api/favorite/',
+          { user: userId, apartment: productId },
+          {
+            headers,
+          }
+        );
+      }
+    } catch (error) {}
   };
   return (
     <div className={deteilstyle.container}>
@@ -111,8 +170,20 @@ function DetailPage() {
                   display={'flex'}
                   justifyContent={'space-between'}
                 >
-                  {oneProduct.price} Сом
-                  <FcLike fontSize={'30px'} />
+                  {oneProduct.price} $
+                  {favorites.includes(oneProduct.id) ? (
+                    <AiFillHeart
+                      color="red"
+                      fontSize={'35px'}
+                      onClick={() => toggleFavorite(oneProduct.id)}
+                    />
+                  ) : (
+                    <AiOutlineHeart
+                      color="red"
+                      fontSize={'35px'}
+                      onClick={() => toggleFavorite(oneProduct.id)}
+                    />
+                  )}
                 </Box>
               </Box>
             </Box>

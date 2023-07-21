@@ -42,14 +42,18 @@ function MainPage() {
   }, []);
 
   useEffect(() => {
+    // При изменении списка избранных продуктов сохраняем его в localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
+  // Функция для обновления состояния избранных продуктов при нажатии кнопки "Избранное"
   const toggleFavorite = async (productId) => {
     try {
+      // Получаем ID продукта из localStorage
       const userId = localStorage.getItem('id');
 
       if (!userId) {
+        // Если нет ID пользователя, запрос не выполняется
         console.error('Отсутствует ID пользователя в localStorage.');
         return;
       }
@@ -60,20 +64,24 @@ function MainPage() {
       };
 
       if (favorites.includes(productId)) {
+        // Если продукт уже в избранном, удаляем его из списка
         setFavorites((prevFavorites) =>
           prevFavorites.filter((id) => id !== productId)
         );
 
+        // Отправляем DELETE-запрос на сервер для удаления из избранного
         await axios.delete(
           `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
           {
             headers,
-            data: { user: userId },
+            data: { user: userId }, // Передаем ID пользователя в теле запроса
           }
         );
       } else {
+        // Если продукта нет в избранном, добавляем его в список
         setFavorites((prevFavorites) => [...prevFavorites, productId]);
 
+        // Отправляем POST-запрос на сервер для добавления в избранное
         await axios.post(
           'https://vm4506017.43ssd.had.wf/api/favorite/',
           { user: userId, apartment: productId },
@@ -223,6 +231,7 @@ function MainPage() {
                             <BiShapeSquare fontSize={'20px'} /> {item.square}
                           </Box>
                         </Box>
+                        <Box>{item.description.slice(0, 22)}...</Box>
                         <Box
                           fontSize="2xl"
                           fontWeight={600}

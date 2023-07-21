@@ -36,7 +36,7 @@ function ProductContext({ children }) {
 
   async function getBestProducts() {
     try {
-      const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      const { data } = await axios.get(`${BASE_URL}/apartment?limit=500000`);
       const filteredProducts = data.results.filter(
         (product) => product.best === true
       );
@@ -51,7 +51,7 @@ function ProductContext({ children }) {
 
   async function getProducts() {
     try {
-      const { data } = await axios.get(`${BASE_URL}/apartment/`);
+      const { data } = await axios.get(`${BASE_URL}/apartment/?limit=500000`);
       const Products = data.results.filter((product) => product.best === false);
       dispatch({
         type: ACTIONS.products,
