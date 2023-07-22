@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.8735b9aa.css",
-    "main.js": "/static/js/main.0b2c9d3c.js",
-    "static/media/start_logo.png": "/static/media/start_logo.4ac28cde7ff47076abeb.png",
+    "main.css": "/static/css/main.5c7f60e2.css",
+    "main.js": "/static/js/main.5424e99f.js",
+    "static/media/bg1.png": "/static/media/bg1.41098ac652ac4a18df2a.png",
+    "static/media/w.svg": "/static/media/w.b8b3096a56c600a1c791fd6802f507fb.svg",
     "static/media/photo.svg": "/static/media/photo.a2067bdcbcc405d37286d25785dd7dd1.svg",
-    "static/media/e.svg": "/static/media/e.b128afb6695954c5f7f0fd1c0cd44c5b.svg",
-    "static/media/q.svg": "/static/media/q.df85f5c6bc6da112ad69c3d1160b2796.svg",
-    "static/media/r.svg": "/static/media/r.24dbc8fa7e63f38dd37c70f9b7027d98.svg",
-    "static/media/w.svg": "/static/media/w.12e1c27d37ad8000f51c5fc5566770d4.svg",
-    "static/media/bg1.svg": "/static/media/bg1.87485a35f721cbd06e079525f7d2471c.svg",
-    "static/media/Iconcircle.svg": "/static/media/Iconcircle.ec783dd7e23770967f4f826fcfa0a3eb.svg",
+    "static/media/q.svg": "/static/media/q.65e7277dcd18d3e55ddc103597a1e598.svg",
+    "static/media/e.svg": "/static/media/e.d65ad3ff96b72304f23098a2098edb4e.svg",
+    "static/media/logo.svg": "/static/media/logo.883224dc850722f47f638c1cafae0365.svg",
+    "static/media/r.svg": "/static/media/r.b537c20eb242cfff19374c14052b12e0.svg",
+    "static/media/start_logo.svg": "/static/media/start_logo.506581c285068bd8ee4afadc4c39b5e2.svg",
+    "static/media/logicon.png": "/static/media/logicon.24b491631a320b70ea15.png",
+    "static/media/bg2.svg": "/static/media/bg2.faac440d376a20a5355aaec5529d7523.svg",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "static/media/ftbg1.svg": "/static/media/ftbg1.f572b0d741a135bc6a5f330d28acbf01.svg",
-    "main.8735b9aa.css.map": "/static/css/main.8735b9aa.css.map",
-    "main.0b2c9d3c.js.map": "/static/js/main.0b2c9d3c.js.map"
+    "main.5c7f60e2.css.map": "/static/css/main.5c7f60e2.css.map",
+    "main.5424e99f.js.map": "/static/js/main.5424e99f.js.map"
   },
   "entrypoints": [
-    "static/css/main.8735b9aa.css",
-    "static/js/main.0b2c9d3c.js"
+    "static/css/main.5c7f60e2.css",
+    "static/js/main.5424e99f.js"
   ]
 }

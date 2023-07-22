@@ -28,10 +28,33 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
+const refreshAccessToken = async () => {
+  try {
+    const refreshData = {
+      refresh: localStorage.getItem('adminRefresh'),
+    };
+    const refreshResponse = await axios.post(
+      'https://vm4506017.43ssd.had.wf/api/token/refresh/',
+      refreshData
+    );
+    if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
+    } else {
+      throw new Error('Ошибка обновления токена');
+    }
+  } catch (error) {
+    alert('Ошибка соединения');
+  }
+};
+setInterval(refreshAccessToken, 300000);
+
 function MainPage() {
   const { products, getProducts } = useProductContext();
 
   // Получаем список избранных продуктов из localStorage при загрузке страницы
+  const [favoritesId, setFavoritesId] = useState(() => {
+    const savedFavoritesId = localStorage.getItem('favoritesId');
+    return savedFavoritesId ? parseInt(savedFavoritesId, 10) : null;
+  });
   const [favorites, setFavorites] = useState(() => {
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return savedFavorites;
@@ -46,14 +69,19 @@ function MainPage() {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    // При изменении favoritesId сохраняем его в localStorage
+    if (favoritesId) {
+      localStorage.setItem('favoritesId', favoritesId);
+    }
+  }, [favoritesId]);
+
   // Функция для обновления состояния избранных продуктов при нажатии кнопки "Избранное"
   const toggleFavorite = async (productId) => {
     try {
       // Получаем ID продукта из localStorage
-      const userIdString = localStorage.getItem('id');
-      const userId = +userIdString;
+      const userId = localStorage.getItem('id');
 
-      console.log(userId);
       if (!userId) {
         console.error('Отсутствует ID пользователя в localStorage.');
         return;
@@ -69,16 +97,17 @@ function MainPage() {
         setFavorites((prevFavorites) => [...prevFavorites, productId]);
 
         // Отправляем POST-запрос на сервер для добавления в избранное
-        const test = await axios.post(
+        const response = await axios.post(
           'https://vm4506017.43ssd.had.wf/api/favorite/',
-          { user: userId, apartment: productId },
+          { user: userId, apartment: productId, id: favoritesId }, // Включаем favoritesId в тело запроса
           {
             headers,
           }
         );
 
-        if ((test.status = 200)) {
-          console.log('кайф');
+        // При успешном создании списка избранных продуктов сохраняем полученный ID
+        if (response.status === 201) {
+          setFavoritesId(response.data.id);
         }
       } else {
         // Если продукт уже в избранном, удаляем его из списка
@@ -87,19 +116,16 @@ function MainPage() {
         );
 
         // Отправляем DELETE-запрос на сервер для удаления из избранного
-        const test2 = await axios.delete(
-          `https://vm4506017.43ssd.had.wf/api/favorite/${productId}`,
+        await axios.delete(
+          `https://vm4506017.43ssd.had.wf/api/favorite/${favoritesId}`, // Используем favoritesId в URL запроса
           {
             headers,
             data: { user: userId }, // Передаем ID пользователя в теле запроса
           }
         );
-        if ((test2.status = 200)) {
-          console.log('кайф 2');
-        }
       }
     } catch (error) {
-      console.error(
+      console.log(
         'Произошла ошибка при обновлении списка избранных продуктов:',
         error
       );

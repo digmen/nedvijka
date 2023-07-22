@@ -3,6 +3,8 @@ import axios from 'axios';
 import styles from './loginpag.css';
 import { Navigate } from 'react-router-dom';
 
+
+
 const LoginPage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -64,9 +66,9 @@ const LoginPage = () => {
       const user = superUserData.find((result) => result.login === login);
       if (user && user.is_superuser === false) {
         localStorage.setItem('login', data.login);
-        localStorage.setItem('access', response.data.access);
-        localStorage.setItem('refresh', response.data.refresh);
-        localStorage.setItem('id', response.data.id);
+        localStorage.setItem('adminAccess', response.data.access);
+        localStorage.setItem('adminRefresh', response.data.refresh);
+        localStorage.setItem('id', user.id);
       } else {
         localStorage.setItem('login', user.first_name);
         localStorage.setItem('lastNameAdmin', user.last_name);
