@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap');
+
+/* Общие стили */
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +9,7 @@
   font-weight: 500;
 }
 
+/* Контейнеры */
 .container{
   margin: 0 auto;
   max-width: 1400px;
@@ -29,6 +32,7 @@
   align-items: center;
   width: 1000px; 
 }
+
 .main_logo img{
   width: 283px;
   height: 281px;
@@ -37,14 +41,14 @@
 
 .main_logo span{
   color: #103C64;
-text-align: center;
-font-family: Inter;
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
+/* Секция "Лучшие продукты" */
 .bestproduct{
   margin-top: 350px;
 }
@@ -54,7 +58,6 @@ line-height: normal;
   justify-content: center;
   color: #103C64;
   text-align: center;
-  font-family: Inter;
   font-size: 30px ;
   font-style: normal;
   font-weight: 700;
@@ -70,6 +73,7 @@ line-height: normal;
   justify-content: center;
 }
 
+/* Карточки продуктов */
 .card {
   overflow: hidden;
 }
@@ -89,7 +93,7 @@ line-height: normal;
   justify-content: center;
 }
 
-
+/* Описание */
 .description{
   margin-top: 100px;
   display: flex;
@@ -123,6 +127,7 @@ line-height: normal;
   transition: 1s;
 }
 
+/* Анимация */
 .fade_out {
   display: flex;
   align-items: center;
@@ -160,6 +165,7 @@ line-height: normal;
   }
 }
 
+/* Медиа-запросы */
 @media (max-width: 1025px) {
   .container{
     margin: 0 auto;

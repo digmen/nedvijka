@@ -28,49 +28,50 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-const refreshAccessToken = async () => {
-  try {
-    const refreshData = {
-      refresh: localStorage.getItem('adminRefresh'),
-    };
-    const refreshResponse = await axios.post(
-      'https://vm4506017.43ssd.had.wf/api/token/refresh/',
-      refreshData
-    );
-    if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
-    } else {
-      throw new Error('Ошибка обновления токена');
-    }
-  } catch (error) {
-    alert('Ошибка соединения');
-  }
-};
-setInterval(refreshAccessToken, 300000);
-
 function MainPage() {
+  
+  const refreshAccessToken = async () => {
+    try {
+      const refreshData = {
+        refresh: localStorage.getItem('adminRefresh'),
+      };
+      const refreshResponse = await axios.post(
+        'https://vm4506017.43ssd.had.wf/api/token/refresh/',
+        refreshData
+      );
+      if (refreshResponse.status >= 200 && refreshResponse.status < 300) {
+      } else {
+        throw new Error('Ошибка обновления токена');
+      }
+    } catch (error) {
+      alert('Ошибка соединения');
+    }
+  };
+  useEffect(() => {
+    const interval = setInterval(refreshAccessToken, 300000);
+    return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
+  }, []);
+
+  // Оптимизация: перенести константы внутрь компонента
   const { products, getProducts } = useProductContext();
 
-  // Получаем список избранных продуктов из localStorage при загрузке страницы
-  const [favoritesId, setFavoritesId] = useState(() => {
-    const savedFavoritesId = localStorage.getItem('favoritesId');
-    return savedFavoritesId ? parseInt(savedFavoritesId, 10) : null;
-  });
-  const [favorites, setFavorites] = useState(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    return savedFavorites;
-  });
+  // Оптимизация: исправляем определение favoritesId и favorites с помощью функции useState
+  const [favoritesId, setFavoritesId] = useState(
+    () => parseInt(localStorage.getItem('favoritesId'), 10) || null
+  );
+  const [favorites, setFavorites] = useState(
+    () => JSON.parse(localStorage.getItem('favorites')) || []
+  );
 
   useEffect(() => {
     getProducts();
   }, []);
 
   useEffect(() => {
-    // При изменении списка избранных продуктов сохраняем его в localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
   useEffect(() => {
-    // При изменении favoritesId сохраняем его в localStorage
     if (favoritesId) {
       localStorage.setItem('favoritesId', favoritesId);
     }
